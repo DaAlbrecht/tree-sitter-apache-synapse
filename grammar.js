@@ -23,6 +23,8 @@ module.exports = grammar({
         mediator: $ => choice(
             $.log,
             $.respond,
+            $.property,
+            $.call,
             // TODO: add more mediators
         ),
 
@@ -30,8 +32,6 @@ module.exports = grammar({
             '<respond/>'
         ),
 
-
-        //log mediator can be self closing or have a body 
         log: $ => choice(
             seq(
                 '<log',
@@ -47,7 +47,6 @@ module.exports = grammar({
             )
         ),
 
-
         property: $ => seq(
             '<property',
             field('name', $.name),
@@ -56,6 +55,122 @@ module.exports = grammar({
                 field('expression', $.expression),
             ),
             '/>'
+        ),
+
+        call: $ => seq(
+            '<call',
+            optional(field('name', $.name)),
+            optional(field('blocking', $.blocking)),
+            '>',
+            choice(
+                field('endpoint', $.endpoint),
+                //endpoint reference
+                field('endpoint_reference', $.endpoint_reference),
+            ),
+            '</call>'
+        ),
+
+        endpoint: $ => seq(
+            '<endpoint',
+            optional(field('name', $.name)),
+            //TODO: there are more attributes
+            '>',
+            field('endpoint_type', $._endpoint_type),
+            '</endpoint>'
+        ),
+
+        _endpoint_type: $ => choice(
+            $.http_endpoint,
+            //TODO: add more endpoint types
+        ),
+
+        http_endpoint: $ => seq(
+            '<http',
+            // endpoint attributes the order does not matter but each attribute can only be used once 
+            repeat($._endpoint_attribute),
+            '>',
+            repeat($._endpoint_property),
+            '</http>'
+        ),
+
+        _endpoint_attribute: $ => choice(
+            $.uri_template,
+            $.method,
+        ),
+
+        uri_template: $ => seq(
+            'uri-template',
+            '=',
+            '"',
+            $.identifier,
+            '"'
+        ),
+
+        method: $ => seq(
+            'method',
+            '=',
+            '"',
+            choice(
+                'GET',
+                'POST',
+                'PUT',
+                'DELETE',
+                'HEAD',
+                'OPTIONS',
+                'PATCH',
+                'get',
+                'post',
+                'put',
+                'delete',
+                'head',
+                'options',
+                'patch',
+            ),
+            '"'
+        ),
+
+        _endpoint_property: $ => choice(
+            $.timeout,
+            //TODO: add more endpoint properties 
+        ),
+
+        timeout: $ => seq(
+            '<timeout>',
+            field('duration', $.duration),
+            field('response_action', $.response_action),
+            '</timeout>'
+        ),
+
+        duration: $ => seq(
+            '<duration>',
+            field('number', $.number),
+            '</duration>'
+        ),
+
+        response_action: $ => seq(
+            '<responseAction>',
+            $.boolean,
+            '</responseAction>'
+        ),
+
+        endpoint_reference: $ => seq(
+            '<key',
+            '=',
+            '"',
+            $.identifier,
+            '"',
+            '/>'
+        ),
+
+        blocking: $ => seq(
+            'blocking',
+            '=',
+            '"',
+            choice(
+                'true',
+                'false',
+            ),
+            '"'
         ),
 
         value: $ => seq(
@@ -97,6 +212,13 @@ module.exports = grammar({
         ),
 
         identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
+        number: $ => /[0-9]+/,
+
+        boolean: $ => choice(
+            'true',
+            'false',
+        ),
 
         // xml declaration
 

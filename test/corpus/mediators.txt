@@ -76,3 +76,143 @@ log mediator with properties
         )
     )
 )
+
+==================
+property  mediator 
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+    <property name="message" value="message"/>
+    <property name="message" expression="expression"/>
+</sequence>
+
+---
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+    (sequence_definition
+        (name
+        (identifier)
+    )
+        (mediator
+            (property
+                (name
+                (identifier)
+            )
+                (value
+                (identifier)
+            ))
+            )
+        (mediator
+            (property
+                (name
+                (identifier)
+            )
+                (expression
+                (identifier)
+            ))
+        )
+    )
+)
+
+==================
+call mediator (empty) 
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+    <call>
+        <endpoint>
+            <http method="GET" uri-template="foobar">
+            </http>
+        </endpoint>
+    </call>
+</sequence>
+
+---
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+    (sequence_definition
+        (name
+        (identifier)
+    )
+        (mediator
+            (call
+                (endpoint
+                    (http_endpoint
+                        (method)
+                        (uri_template
+                        (identifier)
+                    )
+                    )
+                )
+            )
+        )
+    )
+)
+
+==================
+call mediator (full)
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+    <call>
+        <endpoint>
+            <http method="GET" uri-template="foobar">
+                <timeout>
+                <duration>1000</duration>
+                <responseAction>true</responseAction>
+                </timeout>
+            </http>
+        </endpoint>
+    </call>
+</sequence>
+
+---
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+    (sequence_definition
+        (name
+        (identifier)
+    )
+        (mediator
+            (call
+                (endpoint
+                    (http_endpoint
+                        (method)
+                        (uri_template
+                        (identifier)
+                    )
+                        (timeout
+                            (duration
+                            (number)
+                        )
+                            (response_action
+                            (boolean)
+                        )
+                    )
+                    )
+                )
+            )
+        )
+    )
+)

@@ -1,5 +1,77 @@
 [
   {
+    "type": "blocking",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "boolean",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "call",
+    "named": true,
+    "fields": {
+      "blocking": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "blocking",
+            "named": true
+          }
+        ]
+      },
+      "endpoint": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "endpoint",
+            "named": true
+          }
+        ]
+      },
+      "endpoint_reference": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "endpoint_reference",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "duration",
+    "named": true,
+    "fields": {
+      "number": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "encoding_declaration",
     "named": true,
     "fields": {},
@@ -15,6 +87,47 @@
     }
   },
   {
+    "type": "endpoint",
+    "named": true,
+    "fields": {
+      "endpoint_type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "http_endpoint",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "endpoint_reference",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "expression",
     "named": true,
     "fields": {},
@@ -24,6 +137,29 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "http_endpoint",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "method",
+          "named": true
+        },
+        {
+          "type": "timeout",
+          "named": true
+        },
+        {
+          "type": "uri_template",
           "named": true
         }
       ]
@@ -69,7 +205,15 @@
       "required": true,
       "types": [
         {
+          "type": "call",
+          "named": true
+        },
+        {
           "type": "log",
+          "named": true
+        },
+        {
+          "type": "property",
           "named": true
         },
         {
@@ -78,6 +222,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "method",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "name",
@@ -136,6 +285,21 @@
     "fields": {}
   },
   {
+    "type": "response_action",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "boolean",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "sequence_definition",
     "named": true,
     "fields": {
@@ -175,6 +339,47 @@
         },
         {
           "type": "xml_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "timeout",
+    "named": true,
+    "fields": {
+      "duration": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "duration",
+            "named": true
+          }
+        ]
+      },
+      "response_action": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "response_action",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "uri_template",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -238,7 +443,27 @@
     "named": false
   },
   {
+    "type": "</call>",
+    "named": false
+  },
+  {
+    "type": "</duration>",
+    "named": false
+  },
+  {
+    "type": "</endpoint>",
+    "named": false
+  },
+  {
+    "type": "</http>",
+    "named": false
+  },
+  {
     "type": "</log>",
+    "named": false
+  },
+  {
+    "type": "</responseAction>",
     "named": false
   },
   {
@@ -246,7 +471,31 @@
     "named": false
   },
   {
+    "type": "</timeout>",
+    "named": false
+  },
+  {
     "type": "<?xml",
+    "named": false
+  },
+  {
+    "type": "<call",
+    "named": false
+  },
+  {
+    "type": "<duration>",
+    "named": false
+  },
+  {
+    "type": "<endpoint",
+    "named": false
+  },
+  {
+    "type": "<http",
+    "named": false
+  },
+  {
+    "type": "<key",
     "named": false
   },
   {
@@ -262,7 +511,15 @@
     "named": false
   },
   {
+    "type": "<responseAction>",
+    "named": false
+  },
+  {
     "type": "<sequence",
+    "named": false
+  },
+  {
+    "type": "<timeout>",
     "named": false
   },
   {
@@ -278,7 +535,43 @@
     "named": false
   },
   {
+    "type": "DELETE",
+    "named": false
+  },
+  {
+    "type": "GET",
+    "named": false
+  },
+  {
+    "type": "HEAD",
+    "named": false
+  },
+  {
+    "type": "OPTIONS",
+    "named": false
+  },
+  {
+    "type": "PATCH",
+    "named": false
+  },
+  {
+    "type": "POST",
+    "named": false
+  },
+  {
+    "type": "PUT",
+    "named": false
+  },
+  {
+    "type": "blocking",
+    "named": false
+  },
+  {
     "type": "custom",
+    "named": false
+  },
+  {
+    "type": "delete",
     "named": false
   },
   {
@@ -294,7 +587,19 @@
     "named": false
   },
   {
+    "type": "false",
+    "named": false
+  },
+  {
     "type": "full",
+    "named": false
+  },
+  {
+    "type": "get",
+    "named": false
+  },
+  {
+    "type": "head",
     "named": false
   },
   {
@@ -310,11 +615,43 @@
     "named": false
   },
   {
+    "type": "method",
+    "named": false
+  },
+  {
     "type": "name",
     "named": false
   },
   {
+    "type": "number",
+    "named": true
+  },
+  {
+    "type": "options",
+    "named": false
+  },
+  {
+    "type": "patch",
+    "named": false
+  },
+  {
+    "type": "post",
+    "named": false
+  },
+  {
+    "type": "put",
+    "named": false
+  },
+  {
     "type": "simple",
+    "named": false
+  },
+  {
+    "type": "true",
+    "named": false
+  },
+  {
+    "type": "uri-template",
     "named": false
   },
   {
