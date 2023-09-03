@@ -70,7 +70,7 @@ log mediator with properties
                         (identifier)
                     )
                         (expression
-                        (identifier)
+                        (xpath)
                     ))
             )
         )
@@ -115,7 +115,7 @@ property  mediator
                 (identifier)
             )
                 (expression
-                (identifier)
+                (xpath)
             ))
         )
     )
@@ -153,9 +153,7 @@ call mediator (empty)
                 (endpoint
                     (http_endpoint
                         (method)
-                        (uri_template
                         (identifier)
-                    )
                     )
                 )
             )
@@ -173,9 +171,18 @@ call mediator (full)
         <endpoint>
             <http method="GET" uri-template="foobar">
                 <timeout>
-                <duration>1000</duration>
-                <responseAction>fault</responseAction>
+                    <duration>1000</duration>
+                    <responseAction>fault</responseAction>
                 </timeout>
+                <suspendOnFailure>
+                    <errorCodes>1</errorCodes>
+                    <initialDuration>0</initialDuration>
+                    <progressionFactor>1.0</progressionFactor>
+                    <maximumDuration>0</maximumDuration>
+                </suspendOnFailure>
+                <markForSuspension>
+                    <errorCodes>1</errorCodes>
+                </markForSuspension>
             </http>
         </endpoint>
     </call>
@@ -199,19 +206,189 @@ call mediator (full)
                 (endpoint
                     (http_endpoint
                         (method)
-                        (uri_template
                         (identifier)
-                    )
+
                         (endpoint_error_property
                             (timeout
                                 (duration
                                 (number)
                             )
                                 (response_action
-                            ))
-                        )
+                            )))
+                        (endpoint_error_property
+                            (suspend_on_failure
+
+                                (error_codes
+                                (number))
+
+                                (initial_duration
+                                (number))
+
+                                (progression_factor
+                                (number))
+
+                                (maximum_duration
+                                (number))))
+
+                        (endpoint_error_property
+                        (mark_for_suspending
+                            (error_codes
+                            (number))))
                     )
                 )
+            )
+        )
+    )
+)
+
+==================
+foreach mediator (empty)
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+    <foreach expression="//emails/email">
+        <sequence>
+        </sequence>
+    </foreach>
+</sequence>
+
+---
+
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+    (sequence_definition
+        (name
+        (identifier)
+    )
+        (mediator
+            (foreach
+                (expression
+                (xpath)
+            )
+            )
+        )
+    )
+)
+
+==================
+foreach mediator (full)
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+    <foreach expression="//emails/email" id="id">
+        <sequence>
+            <log level="custom">
+                <property name="message" value="message"/>
+                <property name="message" expression="expression"/>
+            </log>
+
+            <property name="message" value="message"/>
+        </sequence>
+    </foreach>
+</sequence>
+
+---
+
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+    (sequence_definition
+        (name
+        (identifier)
+    )
+        (mediator
+            (foreach
+                (expression
+                (xpath)
+            )
+                (id
+                (identifier))
+                (mediator
+                    (log
+                        (level
+                        )
+                            (property
+                                (name
+                                (identifier)
+                            )
+                                (value
+                                (identifier)
+                            ))
+                            (property
+                                (name
+                                (identifier)
+                            )
+                                (expression
+                                (xpath)
+                            ))
+                    )
+                )
+                (mediator
+                    (property
+                        (name
+                        (identifier)
+                    )
+                        (value
+                        (identifier)
+                    ))
+                )
+            )
+        )
+    )
+)
+
+
+
+==================
+filter  mediator (empty)
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+        <filter source="//mail" regex="success">
+            <then>
+            </then>
+            <else>
+            </else>
+    </filter>
+</sequence>
+
+---
+
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+    (sequence_definition
+        (name
+        (identifier)
+    )
+        (mediator
+            (filter
+                (source
+                    (xpath)
+                (regex
+                    (expression_string)))
+
+                (then)
+                (else)
             )
         )
     )

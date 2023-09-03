@@ -8,6 +8,8 @@ module.exports = grammar({
             repeat($._definition),
         ),
 
+
+
         _definition: $ => choice(
             $.sequence_definition,
         ),
@@ -25,6 +27,8 @@ module.exports = grammar({
             $.respond,
             $.property,
             $.call,
+            $.foreach,
+            $.filter,
             // TODO: add more mediators
         ),
 
@@ -70,6 +74,54 @@ module.exports = grammar({
             '</call>'
         ),
 
+        foreach: $ => seq(
+            '<foreach',
+            field('expression', $.expression),
+            optional(field('id', $.id)),
+            optional(field('sequence', attr('sequence', $.identifier))),
+            '>',
+            '<sequence>',
+            //TODO: make own list of mediators
+            optional(repeat($.mediator)),
+            '</sequence>',
+            '</foreach>'
+        ),
+
+        filter: $ => seq(
+            '<filter',
+            choice(
+                field('source', $.source),
+                attr('xpath', $.xpath),
+
+            ),
+            '>',
+            field('then', $.then),
+            field('else', $.else),
+            '</filter>'
+        ),
+
+        then: $ => seq(
+            '<then>',
+            optional(repeat($.mediator)),
+            '</then>'
+        ),
+
+        else: $ => seq(
+            '<else>',
+            optional(repeat($.mediator)),
+            '</else>'
+        ),
+
+        source: $ => seq(
+            attr('source', choice(
+                $.json_eval,
+                $.xpath,
+            )),
+            field('regex', $.regex),
+        ),
+
+        regex: $ => attr('regex', $.expression_string),
+
         endpoint: $ => seq(
             '<endpoint',
             optional(field('name', $.name)),
@@ -94,17 +146,10 @@ module.exports = grammar({
         ),
 
         _endpoint_attribute: $ => choice(
-            $.uri_template,
+            attr('uri-template', $.identifier),
             $.method,
         ),
 
-        uri_template: $ => seq(
-            'uri-template',
-            '=',
-            '"',
-            $.identifier,
-            '"'
-        ),
 
         method: $ => seq(
             'method',
@@ -202,7 +247,7 @@ module.exports = grammar({
 
         error_codes: $ => seq(
             '<errorCodes>',
-            repeat($.number),
+            sepBy1(',', $.number),
             '</errorCodes>'
         ),
 
@@ -216,6 +261,7 @@ module.exports = grammar({
             field('number', $.number),
             '</duration>'
         ),
+
 
         response_action: $ => seq(
             '<responseAction>',
@@ -256,20 +302,26 @@ module.exports = grammar({
         ),
 
         expression: $ => seq(
-            'expression',
-            '=',
-            //TODO: add real expression grammar
-            '"',
-            $.identifier,
-            '"'
+            attr('expression', choice(
+                $.xpath,
+                $.json_eval
+            ))
+        ),
+
+
+
+        json_eval: $ => seq(
+            'json-eval(',
+            $.expression_string,
+            ')'
         ),
 
         name: $ => seq(
-            'name',
-            '=',
-            '"',
-            $.identifier,
-            '"'
+            attr('name', $.identifier)
+        ),
+
+        id: $ => seq(
+            attr('id', $.identifier)
         ),
 
         level: $ => seq(
@@ -287,12 +339,24 @@ module.exports = grammar({
 
         identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-        number: $ => /[0-9]+/,
+        number: $ => choice(
+            $._float,
+            $._unsigned_int,
+            $._int,
+        ),
+
+        _float: $ => /[0-9]+\.[0-9]+/,
+
+        _unsigned_int: $ => /[0-9]+/,
+
+        _int: $ => /-[0-9]+/,
 
         boolean: $ => choice(
             'true',
             'false',
         ),
+
+        expression_string: $ => /[^"]*/,
 
         // xml declaration
 
@@ -317,5 +381,37 @@ module.exports = grammar({
             $.encoding
         ),
         encoding: $ => /"UTF-8"/,
+
+        // xpath 
+        xpath: $ => seq(
+            repeat1(
+                choice(
+                    $._xpath_node,
+                    $._xpath_selectors,
+                ),
+            )
+        ),
+
+        _xpath_node: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
+        _xpath_selectors: $ => choice(
+            '/',
+            '//',
+            '..',
+            '.',
+            '@',
+        ),
     }
 });
+
+function sepBy1(sep, rule) {
+    return seq(rule, repeat(seq(sep, rule)))
+}
+
+function sepBy(sep, rule) {
+    return optional(sepBy1(sep, rule))
+}
+
+function attr(name, rule) {
+    return seq(name, '=', '"', rule, '"')
+}
