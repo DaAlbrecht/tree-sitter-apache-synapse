@@ -1,0 +1,78 @@
+==================
+log mediator with self closing tag
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+    <log level="full"/>
+</sequence>
+
+---
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+    (sequence_definition
+        (name
+        (identifier)
+    )
+        (mediator
+            (log
+                (level
+                )
+            )
+        )
+    )
+)
+
+==================
+log mediator with properties
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+    <log level="custom">
+        <property name="message" value="message"/>
+        <property name="message" expression="expression"/>
+    </log>
+</sequence>
+
+---
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+    (sequence_definition
+        (name
+        (identifier)
+    )
+        (mediator
+            (log
+                (level
+                )
+                    (property
+                        (name
+                        (identifier)
+                    )
+                        (value
+                        (identifier)
+                    ))
+                    (property
+                        (name
+                        (identifier)
+                    )
+                        (expression
+                        (identifier)
+                    ))
+            )
+        )
+    )
+)

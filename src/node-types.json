@@ -1,5 +1,40 @@
 [
   {
+    "type": "encoding_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "encoding",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "level",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "log",
     "named": true,
     "fields": {
@@ -8,11 +43,21 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "level",
             "named": true
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "property",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -35,6 +80,57 @@
     }
   },
   {
+    "type": "name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "property",
+    "named": true,
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "respond",
     "named": true,
     "fields": {}
@@ -48,7 +144,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "name",
             "named": true
           }
         ]
@@ -76,16 +172,89 @@
         {
           "type": "sequence_definition",
           "named": true
+        },
+        {
+          "type": "xml_declaration",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "version_info",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "version_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "xml_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "encoding_declaration",
+          "named": true
+        },
+        {
+          "type": "version_info",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "/>",
+    "named": false
+  },
+  {
+    "type": "</log>",
+    "named": false
   },
   {
     "type": "</sequence>",
     "named": false
   },
   {
+    "type": "<?xml",
+    "named": false
+  },
+  {
     "type": "<log",
+    "named": false
+  },
+  {
+    "type": "<property",
     "named": false
   },
   {
@@ -97,11 +266,67 @@
     "named": false
   },
   {
+    "type": "=",
+    "named": false
+  },
+  {
     "type": ">",
     "named": false
   },
   {
+    "type": "?>",
+    "named": false
+  },
+  {
+    "type": "custom",
+    "named": false
+  },
+  {
+    "type": "encoding",
+    "named": true
+  },
+  {
+    "type": "encoding",
+    "named": false
+  },
+  {
+    "type": "expression",
+    "named": false
+  },
+  {
+    "type": "full",
+    "named": false
+  },
+  {
+    "type": "headers",
+    "named": false
+  },
+  {
     "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "level",
+    "named": false
+  },
+  {
+    "type": "name",
+    "named": false
+  },
+  {
+    "type": "simple",
+    "named": false
+  },
+  {
+    "type": "value",
+    "named": false
+  },
+  {
+    "type": "version",
+    "named": false
+  },
+  {
+    "type": "version_number",
     "named": true
   }
 ]

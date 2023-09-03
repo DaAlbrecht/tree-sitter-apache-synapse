@@ -1,0 +1,16 @@
+==================
+xml-start-tag
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+---
+
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+)
