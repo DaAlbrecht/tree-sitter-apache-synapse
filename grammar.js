@@ -89,7 +89,7 @@ module.exports = grammar({
             // endpoint attributes the order does not matter but each attribute can only be used once 
             repeat($._endpoint_attribute),
             '>',
-            repeat($._endpoint_property),
+            repeat($.endpoint_error_property),
             '</http>'
         ),
 
@@ -130,15 +130,85 @@ module.exports = grammar({
         ),
 
         _endpoint_property: $ => choice(
-            $.timeout,
             //TODO: add more endpoint properties 
+        ),
+
+        endpoint_error_property: $ => choice(
+            $.timeout,
+            $.suspend_on_failure,
+            $.mark_for_suspending,
         ),
 
         timeout: $ => seq(
             '<timeout>',
-            field('duration', $.duration),
-            field('response_action', $.response_action),
+            repeat($._timeout_property),
             '</timeout>'
+        ),
+
+        mark_for_suspending: $ => seq(
+            '<markForSuspension>',
+            repeat($._mark_for_suspending_property),
+            '</markForSuspension>'
+        ),
+
+        _mark_for_suspending_property: $ => choice(
+            $.error_codes,
+            $.retries_before_suspending,
+            $.retry_delay,
+        ),
+
+        retries_before_suspending: $ => seq(
+            '<retriesBeforeSuspension>',
+            field('number', $.number),
+            '</retriesBeforeSuspension>'
+        ),
+
+        retry_delay: $ => seq(
+            '<retryDelay>',
+            field('number', $.number),
+            '</retryDelay>'
+        ),
+
+        suspend_on_failure: $ => seq(
+            '<suspendOnFailure>',
+            repeat($._suspend_on_failure_property),
+            '</suspendOnFailure>'
+        ),
+
+        _suspend_on_failure_property: $ => choice(
+            $.initial_duration,
+            $.progression_factor,
+            $.maximum_duration,
+            $.error_codes,
+        ),
+
+        initial_duration: $ => seq(
+            '<initialDuration>',
+            field('number', $.number),
+            '</initialDuration>'
+        ),
+
+        progression_factor: $ => seq(
+            '<progressionFactor>',
+            field('number', $.number),
+            '</progressionFactor>'
+        ),
+
+        maximum_duration: $ => seq(
+            '<maximumDuration>',
+            field('number', $.number),
+            '</maximumDuration>'
+        ),
+
+        error_codes: $ => seq(
+            '<errorCodes>',
+            repeat($.number),
+            '</errorCodes>'
+        ),
+
+        _timeout_property: $ => choice(
+            $.duration,
+            $.response_action,
         ),
 
         duration: $ => seq(
@@ -149,7 +219,11 @@ module.exports = grammar({
 
         response_action: $ => seq(
             '<responseAction>',
-            $.boolean,
+            choice(
+                'never',
+                'discard',
+                'fault',
+            ),
             '</responseAction>'
         ),
 

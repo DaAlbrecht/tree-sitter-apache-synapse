@@ -354,7 +354,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "_endpoint_property"
+            "name": "endpoint_error_property"
           }
         },
         {
@@ -485,10 +485,22 @@
     },
     "_endpoint_property": {
       "type": "CHOICE",
+      "members": []
+    },
+    "endpoint_error_property": {
+      "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
           "name": "timeout"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "suspend_on_failure"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "mark_for_suspending"
         }
       ]
     },
@@ -500,24 +512,231 @@
           "value": "<timeout>"
         },
         {
-          "type": "FIELD",
-          "name": "duration",
+          "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "duration"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "response_action",
-          "content": {
-            "type": "SYMBOL",
-            "name": "response_action"
+            "name": "_timeout_property"
           }
         },
         {
           "type": "STRING",
           "value": "</timeout>"
+        }
+      ]
+    },
+    "mark_for_suspending": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<markForSuspension>"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_mark_for_suspending_property"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "</markForSuspension>"
+        }
+      ]
+    },
+    "_mark_for_suspending_property": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "error_codes"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "retries_before_suspending"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "retry_delay"
+        }
+      ]
+    },
+    "retries_before_suspending": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<retriesBeforeSuspension>"
+        },
+        {
+          "type": "FIELD",
+          "name": "number",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "</retriesBeforeSuspension>"
+        }
+      ]
+    },
+    "retry_delay": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<retryDelay>"
+        },
+        {
+          "type": "FIELD",
+          "name": "number",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "</retryDelay>"
+        }
+      ]
+    },
+    "suspend_on_failure": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<suspendOnFailure>"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_suspend_on_failure_property"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "</suspendOnFailure>"
+        }
+      ]
+    },
+    "_suspend_on_failure_property": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "initial_duration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "progression_factor"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "maximum_duration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "error_codes"
+        }
+      ]
+    },
+    "initial_duration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<initialDuration>"
+        },
+        {
+          "type": "FIELD",
+          "name": "number",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "</initialDuration>"
+        }
+      ]
+    },
+    "progression_factor": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<progressionFactor>"
+        },
+        {
+          "type": "FIELD",
+          "name": "number",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "</progressionFactor>"
+        }
+      ]
+    },
+    "maximum_duration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<maximumDuration>"
+        },
+        {
+          "type": "FIELD",
+          "name": "number",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "</maximumDuration>"
+        }
+      ]
+    },
+    "error_codes": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<errorCodes>"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "</errorCodes>"
+        }
+      ]
+    },
+    "_timeout_property": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "duration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "response_action"
         }
       ]
     },
@@ -550,8 +769,21 @@
           "value": "<responseAction>"
         },
         {
-          "type": "SYMBOL",
-          "name": "boolean"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "never"
+            },
+            {
+              "type": "STRING",
+              "value": "discard"
+            },
+            {
+              "type": "STRING",
+              "value": "fault"
+            }
+          ]
         },
         {
           "type": "STRING",

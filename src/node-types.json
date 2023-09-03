@@ -5,11 +5,6 @@
     "fields": {}
   },
   {
-    "type": "boolean",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "call",
     "named": true,
     "fields": {
@@ -113,6 +108,29 @@
     }
   },
   {
+    "type": "endpoint_error_property",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "mark_for_suspending",
+          "named": true
+        },
+        {
+          "type": "suspend_on_failure",
+          "named": true
+        },
+        {
+          "type": "timeout",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "endpoint_reference",
     "named": true,
     "fields": {},
@@ -122,6 +140,21 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "error_codes",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "number",
           "named": true
         }
       ]
@@ -151,11 +184,11 @@
       "required": false,
       "types": [
         {
-          "type": "method",
+          "type": "endpoint_error_property",
           "named": true
         },
         {
-          "type": "timeout",
+          "type": "method",
           "named": true
         },
         {
@@ -163,6 +196,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "initial_duration",
+    "named": true,
+    "fields": {
+      "number": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -194,6 +243,45 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "mark_for_suspending",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "error_codes",
+          "named": true
+        },
+        {
+          "type": "retries_before_suspending",
+          "named": true
+        },
+        {
+          "type": "retry_delay",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "maximum_duration",
+    "named": true,
+    "fields": {
+      "number": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -244,6 +332,22 @@
     }
   },
   {
+    "type": "progression_factor",
+    "named": true,
+    "fields": {
+      "number": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "property",
     "named": true,
     "fields": {
@@ -287,16 +391,38 @@
   {
     "type": "response_action",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "boolean",
-          "named": true
-        }
-      ]
+    "fields": {}
+  },
+  {
+    "type": "retries_before_suspending",
+    "named": true,
+    "fields": {
+      "number": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "retry_delay",
+    "named": true,
+    "fields": {
+      "number": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -345,29 +471,49 @@
     }
   },
   {
+    "type": "suspend_on_failure",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "error_codes",
+          "named": true
+        },
+        {
+          "type": "initial_duration",
+          "named": true
+        },
+        {
+          "type": "maximum_duration",
+          "named": true
+        },
+        {
+          "type": "progression_factor",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "timeout",
     "named": true,
-    "fields": {
-      "duration": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "duration",
-            "named": true
-          }
-        ]
-      },
-      "response_action": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "response_action",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "duration",
+          "named": true
+        },
+        {
+          "type": "response_action",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -455,7 +601,15 @@
     "named": false
   },
   {
+    "type": "</errorCodes>",
+    "named": false
+  },
+  {
     "type": "</http>",
+    "named": false
+  },
+  {
+    "type": "</initialDuration>",
     "named": false
   },
   {
@@ -463,11 +617,35 @@
     "named": false
   },
   {
+    "type": "</markForSuspension>",
+    "named": false
+  },
+  {
+    "type": "</maximumDuration>",
+    "named": false
+  },
+  {
+    "type": "</progressionFactor>",
+    "named": false
+  },
+  {
     "type": "</responseAction>",
     "named": false
   },
   {
+    "type": "</retriesBeforeSuspension>",
+    "named": false
+  },
+  {
+    "type": "</retryDelay>",
+    "named": false
+  },
+  {
     "type": "</sequence>",
+    "named": false
+  },
+  {
+    "type": "</suspendOnFailure>",
     "named": false
   },
   {
@@ -491,7 +669,15 @@
     "named": false
   },
   {
+    "type": "<errorCodes>",
+    "named": false
+  },
+  {
     "type": "<http",
+    "named": false
+  },
+  {
+    "type": "<initialDuration>",
     "named": false
   },
   {
@@ -500,6 +686,18 @@
   },
   {
     "type": "<log",
+    "named": false
+  },
+  {
+    "type": "<markForSuspension>",
+    "named": false
+  },
+  {
+    "type": "<maximumDuration>",
+    "named": false
+  },
+  {
+    "type": "<progressionFactor>",
     "named": false
   },
   {
@@ -515,7 +713,19 @@
     "named": false
   },
   {
+    "type": "<retriesBeforeSuspension>",
+    "named": false
+  },
+  {
+    "type": "<retryDelay>",
+    "named": false
+  },
+  {
     "type": "<sequence",
+    "named": false
+  },
+  {
+    "type": "<suspendOnFailure>",
     "named": false
   },
   {
@@ -575,12 +785,16 @@
     "named": false
   },
   {
-    "type": "encoding",
-    "named": true
+    "type": "discard",
+    "named": false
   },
   {
     "type": "encoding",
     "named": false
+  },
+  {
+    "type": "encoding",
+    "named": true
   },
   {
     "type": "expression",
@@ -588,6 +802,10 @@
   },
   {
     "type": "false",
+    "named": false
+  },
+  {
+    "type": "fault",
     "named": false
   },
   {
@@ -620,6 +838,10 @@
   },
   {
     "type": "name",
+    "named": false
+  },
+  {
+    "type": "never",
     "named": false
   },
   {

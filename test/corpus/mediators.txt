@@ -174,7 +174,7 @@ call mediator (full)
             <http method="GET" uri-template="foobar">
                 <timeout>
                 <duration>1000</duration>
-                <responseAction>true</responseAction>
+                <responseAction>fault</responseAction>
                 </timeout>
             </http>
         </endpoint>
@@ -202,14 +202,14 @@ call mediator (full)
                         (uri_template
                         (identifier)
                     )
-                        (timeout
-                            (duration
-                            (number)
+                        (endpoint_error_property
+                            (timeout
+                                (duration
+                                (number)
+                            )
+                                (response_action
+                            ))
                         )
-                            (response_action
-                            (boolean)
-                        )
-                    )
                     )
                 )
             )
