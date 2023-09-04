@@ -272,6 +272,7 @@ foreach mediator (empty)
                 (expression
                 (xpath)
             )
+                (sequence)
             )
         )
     )
@@ -316,6 +317,7 @@ foreach mediator (full)
             )
                 (id
                 (identifier))
+                (sequence
                 (mediator
                     (log
                         (level
@@ -344,7 +346,7 @@ foreach mediator (full)
                         (value
                         (identifier)
                     ))
-                )
+                ))
             )
         )
     )
@@ -393,3 +395,242 @@ filter  mediator (empty)
         )
     )
 )
+
+==================
+filter  mediator (full)
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+        <filter source="//mail" regex="success">
+            <then>
+                <log level="custom">
+                    <property name="message" value="message"/>
+                    <property name="message" expression="expression"/>
+                </log>
+            </then>
+            <else>
+                <property name="message" value="message"/>
+            </else>
+    </filter>
+</sequence>
+
+---
+
+
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+    (sequence_definition
+        (name
+        (identifier)
+    )
+        (mediator
+            (filter
+                (source
+                    (xpath)
+                (regex
+                    (expression_string)))
+
+                (then
+                    (mediator
+                        (log
+                            (level
+                            )
+                                (property
+                                    (name
+                                    (identifier)
+                                )
+                                    (value
+                                    (identifier)
+                                ))
+                                (property
+                                    (name
+                                    (identifier)
+                                )
+                                    (expression
+                                    (xpath)
+                                ))
+                        )
+                    )
+                )
+                (else
+                    (mediator
+                        (property
+                            (name
+                            (identifier)
+                        )
+                            (value
+                            (identifier)
+                        ))
+                    )
+                )
+            )
+        )
+    )
+)
+
+==================
+aggregate mediator (empty)
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+ <aggregate>
+        <onComplete expression="getQuoteResponse">
+        <send/>
+        </onComplete>
+    </aggregate>
+</sequence>
+
+---
+
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+
+    (sequence_definition
+        (name
+        (identifier)
+    )
+        (mediator
+            (aggregate
+                (on_complete
+                    (expression
+                    (xpath)
+                )
+                    (mediator
+                        (send)
+                    )
+                )
+            )
+        )
+    )
+)
+
+==================
+iterate mediator (empty)
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+    <iterate expression="//mails">
+        <target>
+            <sequence>
+            </sequence>
+        </target>
+    </iterate>
+</sequence>
+
+---
+
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+
+    (sequence_definition
+        (name
+        (identifier)
+    )
+        (mediator
+            (iterate
+                (expression
+                (xpath)
+            )
+                (target
+                    (sequence)
+                )
+            )
+        )
+    )
+)
+
+==================
+iterate mediator (full)
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+    <iterate expression="//mails" sequential="true" preservePayload="true" attachPath="mails">
+        <target>
+            <sequence>
+                <log level="custom">
+                    <property name="message" value="message"/>
+                    <property name="message" expression="expression"/>
+                </log>
+            </sequence>
+        </target>
+    </iterate>
+</sequence>
+
+---
+
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+
+    (sequence_definition
+        (name
+        (identifier)
+    )
+        (mediator
+            (iterate
+                (expression
+                (xpath)
+            )
+                (sequential
+                (boolean))
+                (preservePayload
+                (boolean))
+                (attachPath
+                (xpath))
+                (target
+                    (sequence
+                        (mediator
+                            (log
+                                (level
+                                )
+                                    (property
+                                        (name
+                                        (identifier)
+                                    )
+                                        (value
+                                        (identifier)
+                                    ))
+                                    (property
+                                        (name
+                                        (identifier)
+                                    )
+                                        (expression
+                                        (xpath)
+                                    ))
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
+
+

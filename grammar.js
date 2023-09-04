@@ -29,11 +29,25 @@ module.exports = grammar({
             $.call,
             $.foreach,
             $.filter,
+            $.aggregate,
+            $.send,
+            $.iterate,
             // TODO: add more mediators
         ),
 
         respond: $ => seq(
             '<respond/>'
+        ),
+
+        send: $ => choice(
+            '<send/>',
+            seq(
+                '<send',
+                optional(field('blocking', $.blocking)),
+                '>',
+                field('endpoint', $.endpoint),
+                '</send>'
+            ),
         ),
 
         log: $ => choice(
@@ -80,10 +94,7 @@ module.exports = grammar({
             optional(field('id', $.id)),
             optional(field('sequence', attr('sequence', $.identifier))),
             '>',
-            '<sequence>',
-            //TODO: make own list of mediators
-            optional(repeat($.mediator)),
-            '</sequence>',
+            field('sequence', $.sequence),
             '</foreach>'
         ),
 
@@ -99,6 +110,106 @@ module.exports = grammar({
             field('else', $.else),
             '</filter>'
         ),
+
+        aggregate: $ => seq(
+            choice(
+                '<aggregate>',
+                seq(
+                    '<aggregate',
+                    seq(
+                        choice(
+                            field('id', $.id),
+                            //add the rest but the documentation is not clear
+                        ),
+                    ),
+                    '>',
+                ),
+            ),
+            optional(field('correlateOn', $.correlateOn)),
+            optional(field('complete_condition', $.complete_condition)),
+            optional(field('on_complete', $.on_complete)),
+            '</aggregate>'
+        ),
+
+        //<iterate [sequential=(true | false)] [continueParent=(true | false)] [preservePayload=(true | false)] [(attachPath="XPath|json-eval(JSON Path)")? expression="XPath|json-eval(JSON Path)"]>
+        iterate: $ => seq(
+            '<iterate',
+            repeat1(
+                choice(
+                    field('expression', $.expression),
+                    field('sequential', $.sequential),
+                    field('continueParent', $.continueParent),
+                    field('preservePayload', $.preservePayload),
+                    field('attachPath', $.attachPath),
+                )
+            ),
+            '>',
+            field('target', $.target),
+            '</iterate>'
+        ),
+
+        sequential: $ => attr('sequential', $.boolean),
+
+        continueParent: $ => attr('continueParent', $.boolean),
+
+        preservePayload: $ => attr('preservePayload', $.boolean),
+
+        attachPath: $ => attr('attachPath', choice(
+            $.xpath,
+            $.json_eval,
+        )),
+
+        sequence: $ => seq(
+            '<sequence>',
+            optional(repeat($.mediator)),
+            '</sequence>'
+        ),
+
+        target: $ => seq(
+            '<target',
+            optional(field('to', attr('to', $.identifier))),
+            optional(field('soapAction', attr('soapAction', $.identifier))),
+            optional(field('sequence', attr('sequence', $.identifier))),
+            optional(field('endpoint', attr('endpoint', $.identifier))),
+            '>',
+            field('sequence', $.sequence),
+            '</target>'
+        ),
+
+        correlateOn: $ => seq(
+            '<correlateOn',
+            field('expression', $.expression),
+            '/>'
+        ),
+
+        complete_condition: $ => seq(
+            '<completeCondition',
+            optional(field('timeout', $.timeout)),
+            '>',
+            optional(field('message_count', $.message_count)),
+            '</completeCondition>'
+        ),
+
+        on_complete: $ => seq(
+            '<onComplete',
+            field('expression', $.expression),
+            optional(field('sequence', attr('sequence', $.identifier))),
+            '>',
+            optional(repeat($.mediator)),
+            '</onComplete>'
+        ),
+
+        message_count: $ => seq(
+            '<messageCount',
+            field('min', $.min),
+            field('max', $.max),
+            '/>'
+        ),
+
+        min: $ => attr('min', $.number),
+
+        max: $ => attr('max', $.number),
+
 
         then: $ => seq(
             '<then>',
@@ -151,10 +262,8 @@ module.exports = grammar({
         ),
 
 
-        method: $ => seq(
+        method: $ => attr(
             'method',
-            '=',
-            '"',
             choice(
                 'GET',
                 'POST',
@@ -171,7 +280,6 @@ module.exports = grammar({
                 'options',
                 'patch',
             ),
-            '"'
         ),
 
         _endpoint_property: $ => choice(
@@ -282,24 +390,16 @@ module.exports = grammar({
             '/>'
         ),
 
-        blocking: $ => seq(
-            'blocking',
-            '=',
-            '"',
-            choice(
-                'true',
-                'false',
+        blocking: $ =>
+            attr(
+                'blocking',
+                choice(
+                    'true',
+                    'false',
+                ),
             ),
-            '"'
-        ),
 
-        value: $ => seq(
-            'value',
-            '=',
-            '"',
-            $.identifier,
-            '"'
-        ),
+        value: $ => attr('value', $.identifier),
 
         expression: $ => seq(
             attr('expression', choice(
