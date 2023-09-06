@@ -63,7 +63,6 @@ log mediator with properties
                         (identifier)
                     )
                         (value
-                        (identifier)
                     ))
                     (property
                         (name
@@ -84,42 +83,63 @@ property  mediator
 <?xml version="1.0" encoding="UTF-8"?>
 <sequence name="get_token">
     <property name="message" value="message"/>
-    <property name="message" expression="expression"/>
+    <property name="message" expression="json-eval($.access_token)"/>
+
+    <property name="uri.var.top" expression="boolean(get-property('uri.var.top'))" scope="default" type="STRING" />
+
 </sequence>
 
 ---
 (source_file
-    (xml_declaration
-        (version_info
-            (version_number)
-        )
-        (encoding_declaration
-            (encoding)
+ (xml_declaration
+  (version_info
+   (version_number)
+  )
+  (encoding_declaration
+   (encoding)
+  ))
+ (sequence_definition
+  (name
+   (identifier)
+  )
+  (mediator
+   (property
+    (name
+     (identifier)
+    )
+    (value
+    ))
+  )
+  (mediator
+   (property
+    (name
+     (identifier)
+    )
+    (expression
+     (json_eval
+        (json_path
+         (identifier)
         ))
-    (sequence_definition
-        (name
-        (identifier)
+    ))
+  )
+  (mediator
+   (property
+    (name
+     (identifier)
     )
-        (mediator
-            (property
-                (name
-                (identifier)
-            )
-                (value
-                (identifier)
-            ))
-            )
-        (mediator
-            (property
-                (name
-                (identifier)
-            )
-                (expression
-                (xpath)
-            ))
-        )
+    (expression
+     (xpath
+      (boolean_function
+       (xpath
+        (get_property
+         (identifier)
+        )))
+     )
     )
-)
+   )
+  )
+  )
+  )
 
 ==================
 call mediator (empty) 
@@ -327,7 +347,6 @@ foreach mediator (full)
                                 (identifier)
                             )
                                 (value
-                                (identifier)
                             ))
                             (property
                                 (name
@@ -344,7 +363,6 @@ foreach mediator (full)
                         (identifier)
                     )
                         (value
-                        (identifier)
                     ))
                 ))
             )
@@ -447,7 +465,6 @@ filter  mediator (full)
                                     (identifier)
                                 )
                                     (value
-                                    (identifier)
                                 ))
                                 (property
                                     (name
@@ -466,7 +483,6 @@ filter  mediator (full)
                             (identifier)
                         )
                             (value
-                            (identifier)
                         ))
                     )
                 )
@@ -615,7 +631,6 @@ iterate mediator (full)
                                         (identifier)
                                     )
                                         (value
-                                        (identifier)
                                     ))
                                     (property
                                         (name

@@ -14,3 +14,25 @@ xml-start-tag
             (encoding)
         ))
 )
+
+==================
+xml-comment
+==================
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- comment 
+    <property name="value" expression="value" />
+    foobar
+-->
+---
+
+(source_file
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+    (comment)
+)
+

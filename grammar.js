@@ -1,14 +1,16 @@
 module.exports = grammar({
     name: 'apachesynapse',
 
+    extras: $ => [
+        $.comment,
+        /\s+/,
+    ],
+
     rules: {
-        // TODO: add the actual grammar rules
         source_file: $ => seq(
             optional($.xml_declaration),
             repeat($._definition),
         ),
-
-
 
         _definition: $ => choice(
             $.sequence_definition,
@@ -32,6 +34,7 @@ module.exports = grammar({
             $.aggregate,
             $.send,
             $.iterate,
+            $.sequence,
             // TODO: add more mediators
         ),
 
@@ -68,11 +71,43 @@ module.exports = grammar({
         property: $ => seq(
             '<property',
             field('name', $.name),
+            repeat($._property_attribute),
+            '/>'
+        ),
+
+        _property_attribute: $ => choice(
+            attr('scope', choice(
+                'default',
+                'axis2',
+                'axis2-client',
+                'operation',
+                'transport',
+                'registry',
+                'synapse',
+                'system',
+                'env',
+                'file'
+            )),
+            attr('action', choice(
+                'set',
+                'remove',
+            )),
             choice(
                 field('value', $.value),
                 field('expression', $.expression),
             ),
-            '/>'
+            attr('type', choice(
+                'STRING',
+                'INTEGER',
+                'BOOLEAN',
+                'DOUBLE',
+                'FLOAT',
+                'LONG',
+                'SHORT',
+                'OM',
+            )),
+            attr('pattern', $.regex),
+            attr('group', $.number),
         ),
 
         call: $ => seq(
@@ -107,7 +142,7 @@ module.exports = grammar({
             ),
             '>',
             field('then', $.then),
-            field('else', $.else),
+            optional(field('else', $.else)),
             '</filter>'
         ),
 
@@ -131,7 +166,6 @@ module.exports = grammar({
             '</aggregate>'
         ),
 
-        //<iterate [sequential=(true | false)] [continueParent=(true | false)] [preservePayload=(true | false)] [(attachPath="XPath|json-eval(JSON Path)")? expression="XPath|json-eval(JSON Path)"]>
         iterate: $ => seq(
             '<iterate',
             repeat1(
@@ -160,7 +194,9 @@ module.exports = grammar({
         )),
 
         sequence: $ => seq(
-            '<sequence>',
+            '<sequence',
+            optional(field('key', $.key)),
+            '>',
             optional(repeat($.mediator)),
             '</sequence>'
         ),
@@ -209,6 +245,8 @@ module.exports = grammar({
         min: $ => attr('min', $.number),
 
         max: $ => attr('max', $.number),
+
+        key: $ => attr('key', $.identifier),
 
 
         then: $ => seq(
@@ -399,7 +437,7 @@ module.exports = grammar({
                 ),
             ),
 
-        value: $ => attr('value', $.identifier),
+        value: $ => attr('value', /[^"]*/),
 
         expression: $ => seq(
             attr('expression', choice(
@@ -412,7 +450,7 @@ module.exports = grammar({
 
         json_eval: $ => seq(
             'json-eval(',
-            $.expression_string,
+            $.json_path,
             ')'
         ),
 
@@ -437,7 +475,7 @@ module.exports = grammar({
             '"'
         ),
 
-        identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+        identifier: $ => /[a-zA-Z_][a-zA-Z0-9_.]*/,
 
         number: $ => choice(
             $._float,
@@ -482,12 +520,17 @@ module.exports = grammar({
         ),
         encoding: $ => /"UTF-8"/,
 
-        // xpath 
+        comment: $ => token(seq('<!--', /[^-]+/, '-->')),
+
+        // xpath scrappy implementation
         xpath: $ => seq(
             repeat1(
                 choice(
                     $._xpath_node,
                     $._xpath_selectors,
+                    $._xPath_extension_functions,
+                    $._xpath_function,
+                    $._xpath_string,
                 ),
             )
         ),
@@ -500,6 +543,143 @@ module.exports = grammar({
             '..',
             '.',
             '@',
+        ),
+
+        _xPath_extension_functions: $ => choice(
+            $.base64_encode,
+            $.base64_decode,
+            $.get_property,
+            $.synapse_xpath_property,
+        ),
+
+        _xpath_function: $ => choice(
+            $.boolean_function,
+            $.ceiling_function,
+            $.choose_function,
+            $.concat_function,
+            $.contains_function,
+            $.count_function,
+            $.current_function,
+            $.document_function,
+            $.element_available_function,
+            $.false_function,
+            $.floor_function,
+            $.format_number_function,
+            $.function_available_function,
+            $.generate_id_function,
+            $.id_function,
+            $.key_function,
+            $.lang_function,
+            $.last_function,
+            $.local_name_function,
+            $.name_function,
+            $.namespace_uri_function,
+            $.normalize_space_function,
+            $.not_function,
+            $.number_function,
+            $.position_function,
+            $.round_function,
+            $.starts_with_function,
+            $.string_function,
+            $.string_length_function,
+            $.substring_function,
+            $.substring_after_function,
+            $.substring_before_function,
+            $.sum_function,
+            $.system_property_function,
+            $.translate_function,
+            $.true_function,
+            $.unparsed_entity_url_function,
+        ),
+
+        boolean_function: $ => xPathFunction('boolean', $.xpath),
+        ceiling_function: $ => xPathFunction('ceiling', $.xpath),
+        choose_function: $ => xPathFunction('choose', $.xpath),
+        concat_function: $ => xPathFunction('concat', $.xpath),
+        contains_function: $ => xPathFunction('contains', $.xpath),
+        count_function: $ => xPathFunction('count', $.xpath),
+        current_function: $ => xPathFunction('current', $.xpath),
+        document_function: $ => xPathFunction('document', $.xpath),
+        element_available_function: $ => xPathFunction('element-available', $.xpath),
+        false_function: $ => xPathFunction('false', $.xpath),
+        floor_function: $ => xPathFunction('floor', $.xpath),
+        format_number_function: $ => xPathFunction('format-number', $.xpath),
+        function_available_function: $ => xPathFunction('function-available', $.xpath),
+        generate_id_function: $ => xPathFunction('generate-id', $.xpath),
+        id_function: $ => xPathFunction('id', $.xpath),
+        key_function: $ => xPathFunction('key', $.xpath),
+        lang_function: $ => xPathFunction('lang', $.xpath),
+        last_function: $ => xPathFunction('last', $.xpath),
+        local_name_function: $ => xPathFunction('local-name', $.xpath),
+        name_function: $ => xPathFunction('name', $.xpath),
+        namespace_uri_function: $ => xPathFunction('namespace-uri', $.xpath),
+        normalize_space_function: $ => xPathFunction('normalize-space', $.xpath),
+        not_function: $ => xPathFunction('not', $.xpath),
+        number_function: $ => xPathFunction('number', $.xpath),
+        position_function: $ => xPathFunction('position', $.xpath),
+        round_function: $ => xPathFunction('round', $.xpath),
+        starts_with_function: $ => xPathFunction('starts-with', $.xpath),
+        string_function: $ => xPathFunction('string', $.xpath),
+        string_length_function: $ => xPathFunction('string-length', $.xpath),
+        substring_function: $ => xPathFunction('substring', $.xpath),
+        substring_after_function: $ => xPathFunction('substring-after', $.xpath),
+        substring_before_function: $ => xPathFunction('substring-before', $.xpath),
+        sum_function: $ => xPathFunction('sum', $.xpath),
+        system_property_function: $ => xPathFunction('system-property', $.xpath),
+        translate_function: $ => xPathFunction('translate', $.xpath),
+        true_function: $ => xPathFunction('true', $.xpath),
+        unparsed_entity_url_function: $ => xPathFunction('unparsed-entity-url', $.xpath),
+
+        base64_encode: $ => xPathFunction('base64Encode', $.xpath),
+
+        base64_decode: $ => xPathFunction('base64Decode', $.xpath),
+
+        get_property: $ => seq(
+            'get-property(',
+            '\'',
+            $.identifier,
+            '\'',
+            ')'
+        ),
+
+        _xpath_string: $ => /[a-zA-Z_][a-zA-Z0-9_.]*/,
+
+        synapse_xpath_property: $ => seq(
+            choice(
+                '$body',
+                '$header',
+                '$axis2',
+                'ctx',
+                '$trp',
+                '$url',
+                '$func',
+                '$env',
+            ),
+            ':',
+            $.identifier,
+        ),
+
+        //incorrect implementation of json path
+        json_path: $ => seq(
+            '$.',
+            $.identifier,
+            repeat(
+                choice(
+                    $.json_path_array,
+                    $.json_path_object,
+                )
+            )
+        ),
+
+        json_path_array: $ => seq(
+            '[',
+            $.number,
+            ']'
+        ),
+
+        json_path_object: $ => seq(
+            '.',
+            $.identifier
         ),
     }
 });
@@ -514,4 +694,8 @@ function sepBy(sep, rule) {
 
 function attr(name, rule) {
     return seq(name, '=', '"', rule, '"')
+}
+
+function xPathFunction(name, rule) {
+    return seq(name, '(', rule, ')')
 }

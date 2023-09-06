@@ -65,6 +65,36 @@
     }
   },
   {
+    "type": "base64_decode",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "base64_encode",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "blocking",
     "named": true,
     "fields": {}
@@ -73,6 +103,21 @@
     "type": "boolean",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "boolean_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "call",
@@ -121,6 +166,36 @@
     }
   },
   {
+    "type": "ceiling_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "choose_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "complete_condition",
     "named": true,
     "fields": {
@@ -144,6 +219,36 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "concat_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "contains_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -178,6 +283,51 @@
     }
   },
   {
+    "type": "count_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "current_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "document_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "duration",
     "named": true,
     "fields": {
@@ -191,6 +341,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "element_available_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -322,12 +487,32 @@
     }
   },
   {
+    "type": "expression_string",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "false_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "filter",
     "named": true,
     "fields": {
       "else": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "else",
@@ -359,6 +544,21 @@
     "children": {
       "multiple": false,
       "required": false,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "floor_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
       "types": [
         {
           "type": "xpath",
@@ -420,6 +620,66 @@
     }
   },
   {
+    "type": "format_number_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_available_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "generate_id_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "get_property",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "http_endpoint",
     "named": true,
     "fields": {},
@@ -452,6 +712,21 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "id_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
           "named": true
         }
       ]
@@ -553,7 +828,120 @@
       "required": true,
       "types": [
         {
-          "type": "expression_string",
+          "type": "json_path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "json_path",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "json_path_array",
+          "named": true
+        },
+        {
+          "type": "json_path_object",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "json_path_array",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "json_path_object",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "key",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "key_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lang_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "last_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
           "named": true
         }
       ]
@@ -563,6 +951,21 @@
     "type": "level",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "local_name_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "log",
@@ -687,6 +1090,10 @@
         {
           "type": "send",
           "named": true
+        },
+        {
+          "type": "sequence",
+          "named": true
         }
       ]
     }
@@ -753,9 +1160,84 @@
     }
   },
   {
+    "type": "name_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "namespace_uri_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "normalize_space_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "not_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "number",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "number_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "on_complete",
@@ -806,6 +1288,21 @@
     }
   },
   {
+    "type": "position_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "preservePayload",
     "named": true,
     "fields": {},
@@ -841,7 +1338,7 @@
     "named": true,
     "fields": {
       "expression": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -861,7 +1358,7 @@
         ]
       },
       "value": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -870,6 +1367,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "regex",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -930,6 +1441,21 @@
     }
   },
   {
+    "type": "round_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "send",
     "named": true,
     "fields": {
@@ -958,7 +1484,18 @@
   {
     "type": "sequence",
     "named": true,
-    "fields": {},
+    "fields": {
+      "key": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "key",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -1061,6 +1598,111 @@
     }
   },
   {
+    "type": "starts_with_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string_length_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "substring_after_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "substring_before_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "substring_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sum_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "suspend_on_failure",
     "named": true,
     "fields": {},
@@ -1082,6 +1724,36 @@
         },
         {
           "type": "progression_factor",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "synapse_xpath_property",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "system_property_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
           "named": true
         }
       ]
@@ -1220,7 +1892,7 @@
     }
   },
   {
-    "type": "value",
+    "type": "translate_function",
     "named": true,
     "fields": {},
     "children": {
@@ -1228,11 +1900,46 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "xpath",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "true_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "unparsed_entity_url_function",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "xpath",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "version_info",
@@ -1271,10 +1978,220 @@
   {
     "type": "xpath",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "base64_decode",
+          "named": true
+        },
+        {
+          "type": "base64_encode",
+          "named": true
+        },
+        {
+          "type": "boolean_function",
+          "named": true
+        },
+        {
+          "type": "ceiling_function",
+          "named": true
+        },
+        {
+          "type": "choose_function",
+          "named": true
+        },
+        {
+          "type": "concat_function",
+          "named": true
+        },
+        {
+          "type": "contains_function",
+          "named": true
+        },
+        {
+          "type": "count_function",
+          "named": true
+        },
+        {
+          "type": "current_function",
+          "named": true
+        },
+        {
+          "type": "document_function",
+          "named": true
+        },
+        {
+          "type": "element_available_function",
+          "named": true
+        },
+        {
+          "type": "false_function",
+          "named": true
+        },
+        {
+          "type": "floor_function",
+          "named": true
+        },
+        {
+          "type": "format_number_function",
+          "named": true
+        },
+        {
+          "type": "function_available_function",
+          "named": true
+        },
+        {
+          "type": "generate_id_function",
+          "named": true
+        },
+        {
+          "type": "get_property",
+          "named": true
+        },
+        {
+          "type": "id_function",
+          "named": true
+        },
+        {
+          "type": "key_function",
+          "named": true
+        },
+        {
+          "type": "lang_function",
+          "named": true
+        },
+        {
+          "type": "last_function",
+          "named": true
+        },
+        {
+          "type": "local_name_function",
+          "named": true
+        },
+        {
+          "type": "name_function",
+          "named": true
+        },
+        {
+          "type": "namespace_uri_function",
+          "named": true
+        },
+        {
+          "type": "normalize_space_function",
+          "named": true
+        },
+        {
+          "type": "not_function",
+          "named": true
+        },
+        {
+          "type": "number_function",
+          "named": true
+        },
+        {
+          "type": "position_function",
+          "named": true
+        },
+        {
+          "type": "round_function",
+          "named": true
+        },
+        {
+          "type": "starts_with_function",
+          "named": true
+        },
+        {
+          "type": "string_function",
+          "named": true
+        },
+        {
+          "type": "string_length_function",
+          "named": true
+        },
+        {
+          "type": "substring_after_function",
+          "named": true
+        },
+        {
+          "type": "substring_before_function",
+          "named": true
+        },
+        {
+          "type": "substring_function",
+          "named": true
+        },
+        {
+          "type": "sum_function",
+          "named": true
+        },
+        {
+          "type": "synapse_xpath_property",
+          "named": true
+        },
+        {
+          "type": "system_property_function",
+          "named": true
+        },
+        {
+          "type": "translate_function",
+          "named": true
+        },
+        {
+          "type": "true_function",
+          "named": true
+        },
+        {
+          "type": "unparsed_entity_url_function",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "$.",
+    "named": false
+  },
+  {
+    "type": "$axis2",
+    "named": false
+  },
+  {
+    "type": "$body",
+    "named": false
+  },
+  {
+    "type": "$env",
+    "named": false
+  },
+  {
+    "type": "$func",
+    "named": false
+  },
+  {
+    "type": "$header",
+    "named": false
+  },
+  {
+    "type": "$trp",
+    "named": false
+  },
+  {
+    "type": "$url",
+    "named": false
+  },
+  {
+    "type": "'",
+    "named": false
+  },
+  {
+    "type": "(",
     "named": false
   },
   {
@@ -1303,6 +2220,10 @@
   },
   {
     "type": "/>",
+    "named": false
+  },
+  {
+    "type": ":",
     "named": false
   },
   {
@@ -1530,10 +2451,6 @@
     "named": false
   },
   {
-    "type": "<sequence>",
-    "named": false
-  },
-  {
     "type": "<suspendOnFailure>",
     "named": false
   },
@@ -1566,7 +2483,19 @@
     "named": false
   },
   {
+    "type": "BOOLEAN",
+    "named": false
+  },
+  {
     "type": "DELETE",
+    "named": false
+  },
+  {
+    "type": "DOUBLE",
+    "named": false
+  },
+  {
+    "type": "FLOAT",
     "named": false
   },
   {
@@ -1575,6 +2504,18 @@
   },
   {
     "type": "HEAD",
+    "named": false
+  },
+  {
+    "type": "INTEGER",
+    "named": false
+  },
+  {
+    "type": "LONG",
+    "named": false
+  },
+  {
+    "type": "OM",
     "named": false
   },
   {
@@ -1594,7 +2535,43 @@
     "named": false
   },
   {
+    "type": "SHORT",
+    "named": false
+  },
+  {
+    "type": "STRING",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "action",
+    "named": false
+  },
+  {
     "type": "attachPath",
+    "named": false
+  },
+  {
+    "type": "axis2",
+    "named": false
+  },
+  {
+    "type": "axis2-client",
+    "named": false
+  },
+  {
+    "type": "base64Decode",
+    "named": false
+  },
+  {
+    "type": "base64Encode",
     "named": false
   },
   {
@@ -1602,11 +2579,51 @@
     "named": false
   },
   {
+    "type": "boolean",
+    "named": false
+  },
+  {
+    "type": "ceiling",
+    "named": false
+  },
+  {
+    "type": "choose",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "concat",
+    "named": false
+  },
+  {
+    "type": "contains",
+    "named": false
+  },
+  {
     "type": "continueParent",
     "named": false
   },
   {
+    "type": "count",
+    "named": false
+  },
+  {
+    "type": "ctx",
+    "named": false
+  },
+  {
+    "type": "current",
+    "named": false
+  },
+  {
     "type": "custom",
+    "named": false
+  },
+  {
+    "type": "default",
     "named": false
   },
   {
@@ -1618,24 +2635,32 @@
     "named": false
   },
   {
-    "type": "encoding",
-    "named": true
+    "type": "document",
+    "named": false
+  },
+  {
+    "type": "element-available",
+    "named": false
   },
   {
     "type": "encoding",
     "named": false
+  },
+  {
+    "type": "encoding",
+    "named": true
   },
   {
     "type": "endpoint",
     "named": false
   },
   {
-    "type": "expression",
+    "type": "env",
     "named": false
   },
   {
-    "type": "expression_string",
-    "named": true
+    "type": "expression",
+    "named": false
   },
   {
     "type": "false",
@@ -1646,11 +2671,39 @@
     "named": false
   },
   {
+    "type": "file",
+    "named": false
+  },
+  {
+    "type": "floor",
+    "named": false
+  },
+  {
+    "type": "format-number",
+    "named": false
+  },
+  {
     "type": "full",
     "named": false
   },
   {
+    "type": "function-available",
+    "named": false
+  },
+  {
+    "type": "generate-id",
+    "named": false
+  },
+  {
     "type": "get",
+    "named": false
+  },
+  {
+    "type": "get-property(",
+    "named": false
+  },
+  {
+    "type": "group",
     "named": false
   },
   {
@@ -1670,7 +2723,23 @@
     "named": false
   },
   {
+    "type": "key",
+    "named": false
+  },
+  {
+    "type": "lang",
+    "named": false
+  },
+  {
+    "type": "last",
+    "named": false
+  },
+  {
     "type": "level",
+    "named": false
+  },
+  {
+    "type": "local-name",
     "named": false
   },
   {
@@ -1690,7 +2759,27 @@
     "named": false
   },
   {
+    "type": "namespace-uri",
+    "named": false
+  },
+  {
     "type": "never",
+    "named": false
+  },
+  {
+    "type": "normalize-space",
+    "named": false
+  },
+  {
+    "type": "not",
+    "named": false
+  },
+  {
+    "type": "number",
+    "named": false
+  },
+  {
+    "type": "operation",
     "named": false
   },
   {
@@ -1699,6 +2788,14 @@
   },
   {
     "type": "patch",
+    "named": false
+  },
+  {
+    "type": "pattern",
+    "named": false
+  },
+  {
+    "type": "position",
     "named": false
   },
   {
@@ -1718,11 +2815,31 @@
     "named": false
   },
   {
+    "type": "registry",
+    "named": false
+  },
+  {
+    "type": "remove",
+    "named": false
+  },
+  {
+    "type": "round",
+    "named": false
+  },
+  {
+    "type": "scope",
+    "named": false
+  },
+  {
     "type": "sequence",
     "named": false
   },
   {
     "type": "sequential",
+    "named": false
+  },
+  {
+    "type": "set",
     "named": false
   },
   {
@@ -1738,11 +2855,67 @@
     "named": false
   },
   {
+    "type": "starts-with",
+    "named": false
+  },
+  {
+    "type": "string",
+    "named": false
+  },
+  {
+    "type": "string-length",
+    "named": false
+  },
+  {
+    "type": "substring",
+    "named": false
+  },
+  {
+    "type": "substring-after",
+    "named": false
+  },
+  {
+    "type": "substring-before",
+    "named": false
+  },
+  {
+    "type": "sum",
+    "named": false
+  },
+  {
+    "type": "synapse",
+    "named": false
+  },
+  {
+    "type": "system",
+    "named": false
+  },
+  {
+    "type": "system-property",
+    "named": false
+  },
+  {
     "type": "to",
     "named": false
   },
   {
+    "type": "translate",
+    "named": false
+  },
+  {
+    "type": "transport",
+    "named": false
+  },
+  {
     "type": "true",
+    "named": false
+  },
+  {
+    "type": "type",
+    "named": false
+  },
+  {
+    "type": "unparsed-entity-url",
     "named": false
   },
   {
