@@ -8,7 +8,7 @@ empty sequence
 
 ---
 
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)
@@ -33,7 +33,7 @@ sequence with elements
 </sequence>
 
 ---
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)

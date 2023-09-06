@@ -8,7 +8,7 @@ log mediator with self closing tag
 </sequence>
 
 ---
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)
@@ -42,7 +42,7 @@ log mediator with properties
 </sequence>
 
 ---
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)
@@ -90,7 +90,7 @@ property  mediator
 </sequence>
 
 ---
-(source_file
+(document
  (xml_declaration
   (version_info
    (version_number)
@@ -156,7 +156,7 @@ call mediator (empty)
 </sequence>
 
 ---
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)
@@ -209,7 +209,7 @@ call mediator (full)
 </sequence>
 
 ---
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)
@@ -275,7 +275,7 @@ foreach mediator (empty)
 
 ---
 
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)
@@ -318,7 +318,7 @@ foreach mediator (full)
 
 ---
 
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)
@@ -388,7 +388,7 @@ filter  mediator (empty)
 
 ---
 
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)
@@ -436,7 +436,7 @@ filter  mediator (full)
 ---
 
 
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)
@@ -506,7 +506,7 @@ aggregate mediator (empty)
 
 ---
 
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)
@@ -550,7 +550,7 @@ iterate mediator (empty)
 
 ---
 
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)
@@ -596,7 +596,7 @@ iterate mediator (full)
 
 ---
 
-(source_file
+(document
     (xml_declaration
         (version_info
             (version_number)
@@ -647,5 +647,61 @@ iterate mediator (full)
         )
     )
 )
+
+==================
+payload factory mediator (empty)
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+     <payloadFactory media-type="json">
+        <format>
+        {
+            "username": "$1",
+            "password": "$2"
+        }
+        </format>
+        <args>
+        </args>
+    </payloadFactory>
+</sequence>
+
+---
+
+(document
+ (xml_declaration
+  (version_info
+   (version_number)
+  )
+  (encoding_declaration
+   (encoding)
+  ))
+
+ (sequence_definition
+  (name
+   (identifier)
+  )
+  (mediator
+   (payload_factory
+    (media_type)
+    (format
+     (object
+      (pair
+       (string
+        (string_content))
+       (string
+        (string_content)))
+      (pair
+       (string
+        (string_content))
+       (string
+        (string_content))))
+
+    )
+    (args)
+   )
+  )
+  )
+ )
 
 

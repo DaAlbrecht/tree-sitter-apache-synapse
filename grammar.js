@@ -1,4 +1,6 @@
-module.exports = grammar({
+const JSON = require("tree-sitter-json/grammar")
+
+module.exports = grammar(JSON, {
     name: 'apachesynapse',
 
     extras: $ => [
@@ -7,7 +9,7 @@ module.exports = grammar({
     ],
 
     rules: {
-        source_file: $ => seq(
+        document: $ => seq(
             optional($.xml_declaration),
             repeat($._definition),
         ),
@@ -35,6 +37,7 @@ module.exports = grammar({
             $.send,
             $.iterate,
             $.sequence,
+            $.payload_factory,
             // TODO: add more mediators
         ),
 
@@ -182,6 +185,55 @@ module.exports = grammar({
             '</iterate>'
         ),
 
+        payload_factory: $ => seq(
+            '<payloadFactory',
+            field('media_type', $.media_type),
+            '>',
+            field('format', $.format),
+            field('args', $.args),
+            '</payloadFactory>'
+        ),
+
+        media_type: $ => attr('media-type', choice(
+            'xml',
+            'json',
+        )),
+
+        format: $ => seq(
+            '<format',
+            //TODO: add inline or registry
+            '>',
+            field('value', $._value),
+            '</format>'
+        ),
+
+        _value: (_, previous) => choice(
+            previous,
+        ),
+
+
+        args: $ => choice(
+            '<args/>',
+            seq(
+                '<args>',
+                optional(repeat(
+                    choice(
+                        seq(
+                            '<arg',
+                            attr('value', $.value),
+                            '/>'
+                        ),
+                        seq(
+                            '<arg',
+                            attr('expression', $.expression),
+                            '/>'
+                        ),
+                    ),
+                )),
+                '</args>',
+            ),
+        ),
+
         sequential: $ => attr('sequential', $.boolean),
 
         continueParent: $ => attr('continueParent', $.boolean),
@@ -298,7 +350,6 @@ module.exports = grammar({
             attr('uri-template', $.identifier),
             $.method,
         ),
-
 
         method: $ => attr(
             'method',

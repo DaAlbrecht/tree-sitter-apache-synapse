@@ -1,19 +1,23 @@
 {
-  "name": "tree-sitter-apachesynapse",
-  "version": "0.0.1",
-  "description": "apachesynapse grammar for tree-sitter",
-  "main": "bindings/node",
-  "keywords": [
-    "parsing",
-    "incremental"
-  ],
-  "dependencies": {
-    "nan": "^2.12.1"
-  },
-  "devDependencies": {
-    "tree-sitter-cli": "^0.20.8"
-  },
-  "scripts": {
-    "test": "tree-sitter test"
-  }
+    "name": "tree-sitter-apachesynapse",
+    "version": "0.0.1",
+    "description": "apachesynapse grammar for tree-sitter",
+    "main": "bindings/node",
+    "keywords": [
+        "parsing",
+        "incremental"
+    ],
+    "dependencies": {
+        "nan": "^2.12.1",
+        "tree-sitter-json": "^0.20.0"
+
+    },
+    "devDependencies": {
+        "tree-sitter-cli": "^0.20.8",
+        "tree-sitter-json": "^0.20.0"
+    },
+    "scripts": {
+        "build": "tree-sitter generate && node-gyp build",
+        "test": "tree-sitter test"
+    }
 }
