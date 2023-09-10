@@ -16,7 +16,82 @@ module.exports = grammar(JSON, {
 
         _definition: $ => choice(
             $.sequence_definition,
+            $.api_definition,
         ),
+
+        api_definition: $ => seq(
+            '<api',
+            $.api_attribute,
+            '>',
+            repeat($.resource_definition),
+            '</api>',
+        ),
+
+        resource_definition: $ => seq(
+            '<resource',
+            $.resource_attribute,
+            '>',
+            $.mediation_sequences,
+            '</resource>',
+        ),
+
+        mediation_sequences: $ => seq(
+            field('in', $.in_sequence),
+            field('out', $.out_sequence),
+            field('fault', $.fault_sequence),
+
+        ),
+
+        in_sequence: $ => seq(
+            '<inSequence>',
+            optional(repeat($.mediator)),
+            '</inSequence>',
+        ),
+
+        out_sequence: $ => seq(
+            '<outSequence>',
+            optional(repeat($.mediator)),
+            '</outSequence>',
+        ),
+
+        fault_sequence: $ => seq(
+            '<faultSequence>',
+            optional(repeat($.mediator)),
+            '</faultSequence>',
+        ),
+
+        resource_attribute: $ => seq(
+            attr('methods', $.method),
+            attr('uri-template', $.expression_string),
+            //TODO: add more attributes
+        ),
+
+        api_attribute: $ => seq(
+            attr('xmlns', $.expression_string),
+            attr('name', $.name),
+            attr('context', $.context),
+            optional(
+                repeat(
+                    choice(
+                        attr('hostname', $.hostname),
+                        attr('port', $.port),
+                        attr('version', $.version),
+                        attr('swagger', $.swagger),
+                    ),
+                ),
+            ),
+        ),
+
+        context: $ => attr('context', $.identifier),
+
+        hostname: $ => attr('hostname', $.identifier),
+
+        port: $ => attr('port', $.number),
+
+        version: $ => attr('version', $.identifier),
+
+        swagger: $ => attr('swagger', $.identifier),
+
 
         sequence_definition: $ => seq(
             '<sequence',
@@ -217,22 +292,29 @@ module.exports = grammar(JSON, {
             seq(
                 '<args>',
                 optional(repeat(
-                    choice(
-                        seq(
-                            '<arg',
-                            attr('value', $.value),
-                            '/>'
-                        ),
-                        seq(
-                            '<arg',
-                            attr('expression', $.expression),
-                            '/>'
-                        ),
+                    seq(
+                        '<arg',
+                        field('arg', $.arg),
+                        '/>'
                     ),
                 )),
                 '</args>',
             ),
         ),
+
+        arg: $ => seq(
+            optional(field('evaluator', $.evaluator)),
+            choice(
+                field('expression', $.expression),
+                field('value', $.value),
+            ),
+        ),
+
+
+        evaluator: $ => attr('evaluator', choice(
+            'xml',
+            'json',
+        )),
 
         sequential: $ => attr('sequential', $.boolean),
 

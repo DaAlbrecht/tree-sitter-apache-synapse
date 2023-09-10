@@ -1,0 +1,45 @@
+==================
+api definition
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse" name="UserSync" context="/usersync">
+<resource methods="GET" uri-template="/">
+<inSequence>
+</inSequence>
+<outSequence>
+</outSequence>
+<faultSequence>
+</faultSequence>
+</resource>
+</api>
+---
+
+(document
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+    (api_definition
+        (api_attribute
+            (xmlns)
+            (name)
+            (context)
+        )
+            (resource_definition
+            (resource_attribute
+                (methods)
+                (uri_template)
+            )
+            )
+            (mediation_sequences
+                (in_sequence)
+                (out_sequence)
+                (fault_sequence)
+            )
+
+    )
+

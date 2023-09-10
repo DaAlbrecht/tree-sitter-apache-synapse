@@ -649,7 +649,7 @@ iterate mediator (full)
 )
 
 ==================
-payload factory mediator (empty)
+payload factory mediator (full)
 ==================
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -662,6 +662,8 @@ payload factory mediator (empty)
         }
         </format>
         <args>
+        <arg evaluator="xml" expression="//username"/>
+        <arg evaluator="xml" expression="//password"/>
         </args>
     </payloadFactory>
 </sequence>
@@ -698,7 +700,15 @@ payload factory mediator (empty)
         (string_content))))
 
     )
-    (args)
+    (args
+    (arg
+     (evaluator)
+     (expression 
+        (xpath)))
+    (arg 
+    (evaluator)
+    (expression 
+        (xpath))))
    )
   )
   )
