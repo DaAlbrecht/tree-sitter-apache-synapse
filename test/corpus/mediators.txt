@@ -714,4 +714,40 @@ payload factory mediator (full)
   )
  )
 
+==================
+header mediator (empty)
+==================
 
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+      <header name="Authorization" expression="$body" scope="transport" action="remove"/>
+</sequence>
+
+
+---
+
+(document
+ (xml_declaration
+  (version_info
+   (version_number)
+  )
+  (encoding_declaration
+   (encoding)
+  ))
+
+ (sequence_definition
+  (name
+   (identifier)
+  )
+  (mediator
+   (header
+    (name
+     (identifier))
+    (expression 
+    (xpath 
+    (synapse_xpath_property)))
+    (header_scope)
+    (header_action))
+   )
+  )
+ )

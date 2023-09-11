@@ -21,21 +21,29 @@ module.exports = grammar(JSON, {
 
         api_definition: $ => seq(
             '<api',
-            $.api_attribute,
+            field('api_attributes', $.api_attributes),
             '>',
-            repeat($.resource_definition),
+            repeat1(field('resource_definition', $.resource_definition)),
             '</api>',
         ),
 
+        xmlns: $ => attr('xmlns', 'http://ws.apache.org/ns/synapse'),
+
         resource_definition: $ => seq(
             '<resource',
-            $.resource_attribute,
+            field('methods', $.methods),
+            choice(
+                field('uri_template', $.uri_template),
+                field('url_mapping', $.url_mapping),
+            ),
             '>',
-            $.mediation_sequences,
+            optional(repeat($._mediation_sequences)),
             '</resource>',
         ),
 
-        mediation_sequences: $ => seq(
+        url_mapping: $ => attr('url-mapping', $.path),
+
+        _mediation_sequences: $ => choice(
             field('in', $.in_sequence),
             field('out', $.out_sequence),
             field('fault', $.fault_sequence),
@@ -60,16 +68,14 @@ module.exports = grammar(JSON, {
             '</faultSequence>',
         ),
 
-        resource_attribute: $ => seq(
-            attr('methods', $.method),
-            attr('uri-template', $.expression_string),
-            //TODO: add more attributes
-        ),
+        methods: $ => repeat1(attr('methods', $.method)),
 
-        api_attribute: $ => seq(
-            attr('xmlns', $.expression_string),
-            attr('name', $.name),
-            attr('context', $.context),
+        uri_template: $ => attr('uri-template', $.path),
+
+        api_attributes: $ => seq(
+            field('xmlns', $.xmlns),
+            field('name', $.name),
+            field('context', $.context),
             optional(
                 repeat(
                     choice(
@@ -82,7 +88,11 @@ module.exports = grammar(JSON, {
             ),
         ),
 
-        context: $ => attr('context', $.identifier),
+        context: $ => attr('context', $.path),
+
+        path: $ => seq(
+            /[a-zA-Z0-9_/]+/,
+        ),
 
         hostname: $ => attr('hostname', $.identifier),
 
@@ -113,6 +123,7 @@ module.exports = grammar(JSON, {
             $.iterate,
             $.sequence,
             $.payload_factory,
+            $.header
             // TODO: add more mediators
         ),
 
@@ -269,6 +280,30 @@ module.exports = grammar(JSON, {
             '</payloadFactory>'
         ),
 
+        //<header name=”string” (value=”string|{property}” | expression=”xpath|jsonpath”) [scope=default|transport] [action=set|remove]/>
+        header: $ => seq(
+            '<header',
+            field('name', $.name),
+            field('value', choice(
+                $.value,
+                $.expression,
+            )),
+            optional(field('header_scope', $.header_scope)),
+            optional(field('header_action', $.header_action)),
+            '/>'
+        ),
+
+        header_scope: $ => attr('scope', choice(
+            'default',
+            'transport',
+        )),
+
+        header_action: $ => attr('action', choice(
+            'set',
+            'remove',
+        )),
+
+
         media_type: $ => attr('media-type', choice(
             'xml',
             'json',
@@ -327,12 +362,19 @@ module.exports = grammar(JSON, {
             $.json_eval,
         )),
 
-        sequence: $ => seq(
-            '<sequence',
-            optional(field('key', $.key)),
-            '>',
-            optional(repeat($.mediator)),
-            '</sequence>'
+        sequence: $ => choice(
+            seq(
+                '<sequence',
+                optional(field('key', $.key)),
+                '>',
+                optional(repeat($.mediator)),
+                '</sequence>'
+            ),
+            seq(
+                '<sequence',
+                optional(field('key', $.key)),
+                '/>',
+            ),
         ),
 
         target: $ => seq(
@@ -430,11 +472,10 @@ module.exports = grammar(JSON, {
 
         _endpoint_attribute: $ => choice(
             attr('uri-template', $.identifier),
-            $.method,
+            attr('method', $.method),
         ),
 
-        method: $ => attr(
-            'method',
+        method: $ =>
             choice(
                 'GET',
                 'POST',
@@ -451,7 +492,6 @@ module.exports = grammar(JSON, {
                 'options',
                 'patch',
             ),
-        ),
 
         _endpoint_property: $ => choice(
             //TODO: add more endpoint properties 
@@ -782,14 +822,16 @@ module.exports = grammar(JSON, {
                 '$body',
                 '$header',
                 '$axis2',
-                'ctx',
+                '$ctx',
                 '$trp',
                 '$url',
                 '$func',
                 '$env',
             ),
-            ':',
-            $.identifier,
+            optional(seq(
+                ':',
+                $.identifier,
+            )),
         ),
 
         //incorrect implementation of json path

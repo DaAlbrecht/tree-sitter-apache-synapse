@@ -1,10 +1,10 @@
 ==================
-api definition
+api definition (empty)
 ==================
 
 <?xml version="1.0" encoding="UTF-8"?>
-<api xmlns="http://ws.apache.org/ns/synapse" name="UserSync" context="/usersync">
-<resource methods="GET" uri-template="/">
+<api xmlns="http://ws.apache.org/ns/synapse" name="azure" context="/azure">
+<resource methods="GET" uri-template="/foobar">
 <inSequence>
 </inSequence>
 <outSequence>
@@ -24,22 +24,138 @@ api definition
             (encoding)
         ))
     (api_definition
-        (api_attribute
-            (xmlns)
-            (name)
-            (context)
+    (api_attributes
+        (xmlns)
+        (name
+        (identifier)
         )
-            (resource_definition
-            (resource_attribute
-                (methods)
-                (uri_template)
+        (context
+        (path))
             )
+    (resource_definition
+        (methods
+            (method)
             )
-            (mediation_sequences
-                (in_sequence)
-                (out_sequence)
-                (fault_sequence)
-            )
+        (uri_template
+        (path))
+    (in_sequence)
+    (out_sequence)
+    (fault_sequence)
+        ))
 
     )
+
+==================
+api definition (full)
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse" name="azure" context="/azure">
+ <resource methods="GET" uri-template="/">
+    <inSequence>
+        <log level="custom">
+        <property name="azure" value="inSequence"/>
+      </log>
+    <!-- the default page size is 10 messages. Use $top to customize the page size, within the range of 1 and 1000 -->
+    <property name="uri.var.top" expression="get-property('query.param.top')" scope="default" type="STRING"/>
+     <filter source="boolean(get-property('uri.var.top'))" regex="false">
+        <then>
+          <property name="uri.var.top" value="10" scope="default" type="STRING"/>
+        </then>
+      </filter>
+       <log level="custom">
+        <property name="top" expression="$ctx:uri.var.top"/>
+      </log>
+      <header name="Authorization" expression="fn:concat('Bearer ', $ctx:ACCESS_TOKEN)" scope="transport"/>
+      <sequence key="get_token"/>
+    </inSequence>
+    <outSequence>
+    </outSequence>
+    <faultSequence>
+    </faultSequence>
+  </resource>
+</api>
+
+---
+    (document
+      (xml_declaration
+        (version_info
+          (version_number))
+        (encoding_declaration
+          (encoding)))
+      (api_definition
+        (api_attributes
+          (xmlns)
+          (name
+            (identifier))
+          (context
+            (path)))
+        (resource_definition
+          (methods
+            (method))
+          (uri_template
+            (path))
+          (in_sequence
+            (mediator
+              (log
+                (level)
+                (property
+                  (name
+                    (identifier))
+                  (value))))
+                (comment)
+                (mediator
+                  (property
+                    (name
+                      (identifier))
+                    (expression
+                      (xpath
+                        (get_property
+                          (identifier))))))
+                (mediator
+                (filter
+                  (source
+                    (xpath
+                      (boolean_function
+                        (xpath
+                          (get_property
+                            (identifier)))))
+                  (regex
+                    (expression_string)))
+                  (then
+                    (mediator
+                      (property
+                        (name
+                          (identifier))
+                        (value))))))
+                         (mediator
+                      (log
+                        (level)
+                        (property
+                          (name
+                            (identifier))
+                          (expression
+                            (xpath
+                              (synapse_xpath_property
+                                (identifier)))))))
+                        (mediator
+                             (header
+                                (name
+                                  (identifier))
+                                (expression
+                                  (xpath
+                                    (ERROR)
+                                    (concat_function
+                                      (ERROR)
+                                      (xpath
+                                        (ERROR)
+                                        (synapse_xpath_property
+                                          (identifier))))))
+                                (header_scope)))
+                            (mediator
+                          (sequence
+                            (key
+                              (identifier)))))
+          (out_sequence)
+          (fault_sequence))))
 
