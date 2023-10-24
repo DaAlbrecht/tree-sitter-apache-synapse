@@ -615,7 +615,8 @@ module.exports = grammar(JSON, {
         expression: $ => seq(
             attr('expression', choice(
                 $.xpath,
-                $.json_eval
+                $.json_eval,
+                $.json_path,
             ))
         ),
 
@@ -702,8 +703,15 @@ module.exports = grammar(JSON, {
                     $._xpath_node,
                     $._xpath_selectors,
                     $._xPath_extension_functions,
-                    $._xpath_function,
+                    choice(
+                        $._xpath_function,
+                        seq(
+                            'fn:',
+                            $._xpath_function,
+                        ),
+                    ),
                     $._xpath_string,
+                    $.string_literal,
                 ),
             )
         ),
@@ -768,7 +776,7 @@ module.exports = grammar(JSON, {
         boolean_function: $ => xPathFunction('boolean', $.xpath),
         ceiling_function: $ => xPathFunction('ceiling', $.xpath),
         choose_function: $ => xPathFunction('choose', $.xpath),
-        concat_function: $ => xPathFunction('concat', $.xpath),
+        concat_function: $ => xPathFunction('concat', sepBy1(',', $.xpath)),
         contains_function: $ => xPathFunction('contains', $.xpath),
         count_function: $ => xPathFunction('count', $.xpath),
         current_function: $ => xPathFunction('current', $.xpath),
@@ -815,7 +823,13 @@ module.exports = grammar(JSON, {
             ')'
         ),
 
-        _xpath_string: $ => /[a-zA-Z_][a-zA-Z0-9_.]*/,
+        string_literal: $ => seq(
+            '\'',
+            /[a-zA-Z_][a-zA-Z0-9_.]*/,
+            '\''
+        ),
+
+        _xpath_string: $ => /[a-zA-Z_][a-zA-Z0-9_.\s]*/,
 
         synapse_xpath_property: $ => seq(
             choice(

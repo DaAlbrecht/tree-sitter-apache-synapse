@@ -411,7 +411,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -705,6 +705,10 @@
       "types": [
         {
           "type": "json_eval",
+          "named": true
+        },
+        {
+          "type": "json_path",
           "named": true
         },
         {
@@ -2218,6 +2222,11 @@
     }
   },
   {
+    "type": "string_literal",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "substring_after_function",
     "named": true,
     "fields": {},
@@ -2754,6 +2763,10 @@
         },
         {
           "type": "string_length_function",
+          "named": true
+        },
+        {
+          "type": "string_literal",
           "named": true
         },
         {
@@ -3369,11 +3382,11 @@
   },
   {
     "type": "encoding",
-    "named": false
+    "named": true
   },
   {
     "type": "encoding",
-    "named": true
+    "named": false
   },
   {
     "type": "endpoint",
@@ -3409,6 +3422,10 @@
   },
   {
     "type": "floor",
+    "named": false
+  },
+  {
+    "type": "fn:",
     "named": false
   },
   {

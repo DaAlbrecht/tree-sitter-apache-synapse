@@ -84,7 +84,6 @@ property  mediator
 <sequence name="get_token">
     <property name="message" value="message"/>
     <property name="message" expression="json-eval($.access_token)"/>
-
     <property name="uri.var.top" expression="boolean(get-property('uri.var.top'))" scope="default" type="STRING" />
 
 </sequence>
@@ -713,6 +712,75 @@ payload factory mediator (full)
   )
   )
  )
+
+==================
+payload factory mediator (json)
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+     <payloadFactory media-type="json">
+        <format>
+        {
+            "username": "$1",
+            "password": "$2"
+        }
+        </format>
+        <args>
+        <arg evaluator="json" expression="$.user"/>
+        <arg evaluator="json" expression="$.password"/>
+        </args>
+    </payloadFactory>
+</sequence>
+
+---
+
+(document
+ (xml_declaration
+  (version_info
+   (version_number)
+  )
+  (encoding_declaration
+   (encoding)
+  ))
+
+ (sequence_definition
+  (name
+   (identifier)
+  )
+  (mediator
+  (payload_factory
+    (media_type)
+    (format
+     (object
+      (pair
+       (string
+        (string_content))
+       (string
+        (string_content)))
+      (pair
+       (string
+        (string_content))
+       (string
+        (string_content))))
+
+    )
+    (args
+    (arg
+     (evaluator)
+     (expression 
+        (json_path
+            (identifier)
+        )))
+    (arg 
+    (evaluator)
+    (expression 
+        (json_path
+            (identifier)
+        )))))
+   )
+  )
+  )
 
 ==================
 header mediator (empty)

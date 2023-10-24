@@ -3552,6 +3552,10 @@
                 {
                   "type": "SYMBOL",
                   "name": "json_eval"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "json_path"
                 }
               ]
             },
@@ -3807,12 +3811,34 @@
                 "name": "_xPath_extension_functions"
               },
               {
-                "type": "SYMBOL",
-                "name": "_xpath_function"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_xpath_function"
+                  },
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "fn:"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_xpath_function"
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "SYMBOL",
                 "name": "_xpath_string"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "string_literal"
               }
             ]
           }
@@ -4097,8 +4123,29 @@
           "value": "("
         },
         {
-          "type": "SYMBOL",
-          "name": "xpath"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "xpath"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "xpath"
+                  }
+                ]
+              }
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -4866,9 +4913,26 @@
         }
       ]
     },
+    "string_literal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "'"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[a-zA-Z_][a-zA-Z0-9_.]*"
+        },
+        {
+          "type": "STRING",
+          "value": "'"
+        }
+      ]
+    },
     "_xpath_string": {
       "type": "PATTERN",
-      "value": "[a-zA-Z_][a-zA-Z0-9_.]*"
+      "value": "[a-zA-Z_][a-zA-Z0-9_.\\s]*"
     },
     "synapse_xpath_property": {
       "type": "SEQ",
