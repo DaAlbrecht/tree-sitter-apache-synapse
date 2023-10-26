@@ -22,7 +22,7 @@ empty sequence
     )
 )
 
-==================
+=================
 sequence with elements
 ==================
 
@@ -45,6 +45,39 @@ sequence with elements
         (name
         (identifier)
     )
+        (mediator
+            (log
+                (level
+                )
+            )
+        )
+    )
+)
+
+=================
+sequence with namespace
+==================
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="list_group_members">
+    <log level="full">
+    </log>
+</sequence>
+
+---
+
+(document
+    (xml_declaration
+        (version_info
+            (version_number)
+        )
+        (encoding_declaration
+            (encoding)
+        ))
+    (sequence_definition
+        (xmlns)
+        (name
+        (identifier))
         (mediator
             (log
                 (level

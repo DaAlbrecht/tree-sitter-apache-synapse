@@ -926,10 +926,10 @@
         },
         {
           "type": "FIELD",
-          "name": "name",
+          "name": "sequence_properties",
           "content": {
             "type": "SYMBOL",
-            "name": "name"
+            "name": "_sequence_properties"
           }
         },
         {
@@ -956,6 +956,30 @@
           "value": "</sequence>"
         }
       ]
+    },
+    "_sequence_properties": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "name"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "xmlns",
+            "content": {
+              "type": "SYMBOL",
+              "name": "xmlns"
+            }
+          }
+        ]
+      }
     },
     "mediator": {
       "type": "CHOICE",
@@ -4922,7 +4946,7 @@
         },
         {
           "type": "PATTERN",
-          "value": "[a-zA-Z_][a-zA-Z0-9_.]*"
+          "value": "[a-zA-Z_\\/][a-zA-Z0-9_.\\s\\/]*"
         },
         {
           "type": "STRING",

@@ -105,10 +105,17 @@ module.exports = grammar(JSON, {
 
         sequence_definition: $ => seq(
             '<sequence',
-            field('name', $.name),
+            field('sequence_properties', $._sequence_properties),
             '>',
             optional(repeat($.mediator)),
             '</sequence>',
+        ),
+
+        _sequence_properties: $ => repeat1(
+            choice(
+                field('name', $.name),
+                field('xmlns', $.xmlns),
+            ),
         ),
 
         mediator: $ => choice(
@@ -825,7 +832,7 @@ module.exports = grammar(JSON, {
 
         string_literal: $ => seq(
             '\'',
-            /[a-zA-Z_][a-zA-Z0-9_.]*/,
+            /[a-zA-Z_\/][a-zA-Z0-9_.\s\/]*/,
             '\''
         ),
 

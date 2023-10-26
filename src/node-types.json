@@ -1076,11 +1076,6 @@
     }
   },
   {
-    "type": "identifier",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "in_sequence",
     "named": true,
     "fields": {},
@@ -2080,11 +2075,35 @@
     "named": true,
     "fields": {
       "name": {
-        "multiple": false,
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "name",
+            "named": true
+          }
+        ]
+      },
+      "sequence_properties": {
+        "multiple": true,
         "required": true,
         "types": [
           {
             "type": "name",
+            "named": true
+          },
+          {
+            "type": "xmlns",
+            "named": true
+          }
+        ]
+      },
+      "xmlns": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "xmlns",
             "named": true
           }
         ]
@@ -3382,11 +3401,11 @@
   },
   {
     "type": "encoding",
-    "named": true
+    "named": false
   },
   {
     "type": "encoding",
-    "named": false
+    "named": true
   },
   {
     "type": "endpoint",
@@ -3475,6 +3494,10 @@
   {
     "type": "id",
     "named": false
+  },
+  {
+    "type": "identifier",
+    "named": true
   },
   {
     "type": "json",

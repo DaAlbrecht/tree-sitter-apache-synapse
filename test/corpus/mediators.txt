@@ -819,3 +819,49 @@ header mediator (empty)
    )
   )
  )
+
+==================
+property mediator (with concat)
+==================
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get_token">
+<property name="uri.var.url"
+    expression="fn:concat(get-property('GRAPH_BASE_URL'),'/members', get-property('GRAPH_SEARCH_QUERY'))" />
+</sequence>
+
+---
+(document
+ (xml_declaration
+  (version_info
+   (version_number)
+  )
+  (encoding_declaration
+   (encoding)
+  ))
+
+ (sequence_definition
+  (name
+   (identifier)
+  )
+  (mediator
+    (property
+        (name
+        (identifier))
+        (expression
+        (xpath 
+        (concat_function
+            (xpath
+                (get_property
+                    (identifier)
+                ))
+            (xpath 
+            (string_literal))
+            (xpath
+                (get_property
+                    (identifier)
+                ))
+        )))))))
+
+
+
+
