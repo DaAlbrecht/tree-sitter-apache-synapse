@@ -4,7 +4,7 @@ description = "apachesynapse grammar for the tree-sitter parsing library"
 version = "0.0.1"
 keywords = ["incremental", "parsing", "apachesynapse"]
 categories = ["parsing", "text-editors"]
-repository = "https://github.com/tree-sitter/tree-sitter-apachesynapse"
+repository = "https://github.com/DaAlbrecht/tree-sitter-apachesynapse"
 edition = "2018"
 license = "MIT"
 
