@@ -58,19 +58,21 @@ log mediator with properties
             (log
                 (level
                 )
+                (mediator
                     (property
                         (name
                         (identifier)
                     )
                         (value
-                    ))
+                    )))
+                (mediator
                     (property
                         (name
                         (identifier)
                     )
                         (expression
                         (xpath)
-                    ))
+                    )))
             )
         )
     )
@@ -341,19 +343,21 @@ foreach mediator (full)
                     (log
                         (level
                         )
+                        (mediator
                             (property
                                 (name
                                 (identifier)
                             )
                                 (value
-                            ))
+                            )))
+                        (mediator
                             (property
                                 (name
                                 (identifier)
                             )
                                 (expression
                                 (xpath)
-                            ))
+                            )))
                     )
                 )
                 (mediator
@@ -459,19 +463,21 @@ filter  mediator (full)
                         (log
                             (level
                             )
+                            (mediator
                                 (property
                                     (name
                                     (identifier)
                                 )
                                     (value
-                                ))
+                                )))
+                            (mediator
                                 (property
                                     (name
                                     (identifier)
                                 )
                                     (expression
                                     (xpath)
-                                ))
+                                )))
                         )
                     )
                 )
@@ -625,19 +631,21 @@ iterate mediator (full)
                             (log
                                 (level
                                 )
+                                (mediator
                                     (property
                                         (name
                                         (identifier)
                                     )
                                         (value
-                                    ))
+                                    )))
+                                (mediator
                                     (property
                                         (name
                                         (identifier)
                                     )
                                         (expression
                                         (xpath)
-                                    ))
+                                    )))
                             )
                         )
                     )

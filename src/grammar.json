@@ -1122,7 +1122,7 @@
                   "type": "REPEAT",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "property"
+                    "name": "mediator"
                   }
                 },
                 {

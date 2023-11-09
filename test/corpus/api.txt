@@ -99,10 +99,11 @@ api definition (full)
     (mediator
      (log
       (level)
+      (mediator
       (property
        (name
         (identifier))
-       (value))))
+       (value)))))
     (comment)
     (mediator
      (property
@@ -131,13 +132,14 @@ api definition (full)
     (mediator
      (log
       (level)
+      (mediator
       (property
        (name
         (identifier))
        (expression
         (xpath
          (synapse_xpath_property
-          (identifier)))))))
+          (identifier))))))))
     (mediator
      (header
       (name

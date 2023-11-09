@@ -154,7 +154,7 @@ module.exports = grammar(JSON, {
                 '<log',
                 field('level', $.level),
                 '>',
-                optional(repeat($.property)),
+                optional(repeat($.mediator)),
                 '</log>'
             ),
             seq(

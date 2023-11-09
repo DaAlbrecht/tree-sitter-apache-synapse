@@ -1340,7 +1340,7 @@
       "required": false,
       "types": [
         {
-          "type": "property",
+          "type": "mediator",
           "named": true
         }
       ]
