@@ -1,7 +1,7 @@
 [package]
 name = "tree-sitter-apachesynapse"
 description = "apachesynapse grammar for the tree-sitter parsing library"
-version = "0.0.2"
+version = "0.0.3"
 keywords = ["incremental", "parsing", "apachesynapse"]
 categories = ["parsing", "text-editors"]
 repository = "https://github.com/DaAlbrecht/tree-sitter-apachesynapse"

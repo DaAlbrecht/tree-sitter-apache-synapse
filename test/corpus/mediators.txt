@@ -87,7 +87,7 @@ property  mediator
     <property name="message" value="message"/>
     <property name="message" expression="json-eval($.access_token)"/>
     <property name="uri.var.top" expression="boolean(get-property('uri.var.top'))" scope="default" type="STRING" />
-
+    <property name="foo" expression="$ctx:foo" />
 </sequence>
 
 ---
@@ -139,6 +139,15 @@ property  mediator
     )
    )
   )
+  (mediator
+   (property
+    (name
+     (identifier)
+    )
+    (expression
+  (xpath
+    (synapse_xpath_property
+        (identifier))))))
   )
   )
 
