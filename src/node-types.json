@@ -1408,60 +1408,127 @@
   {
     "type": "mediator",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "aggregate",
-          "named": true
-        },
-        {
-          "type": "call",
-          "named": true
-        },
-        {
-          "type": "filter",
-          "named": true
-        },
-        {
-          "type": "foreach",
-          "named": true
-        },
-        {
-          "type": "header",
-          "named": true
-        },
-        {
-          "type": "iterate",
-          "named": true
-        },
-        {
-          "type": "log",
-          "named": true
-        },
-        {
-          "type": "payload_factory",
-          "named": true
-        },
-        {
-          "type": "property",
-          "named": true
-        },
-        {
-          "type": "respond",
-          "named": true
-        },
-        {
-          "type": "send",
-          "named": true
-        },
-        {
-          "type": "sequence",
-          "named": true
-        }
-      ]
+    "fields": {
+      "aggregate": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "aggregate",
+            "named": true
+          }
+        ]
+      },
+      "call": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "call",
+            "named": true
+          }
+        ]
+      },
+      "filter": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "filter",
+            "named": true
+          }
+        ]
+      },
+      "foreach": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "foreach",
+            "named": true
+          }
+        ]
+      },
+      "header": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "header",
+            "named": true
+          }
+        ]
+      },
+      "iterate": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "iterate",
+            "named": true
+          }
+        ]
+      },
+      "log": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "log",
+            "named": true
+          }
+        ]
+      },
+      "payload_factory": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "payload_factory",
+            "named": true
+          }
+        ]
+      },
+      "property": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "property",
+            "named": true
+          }
+        ]
+      },
+      "respond": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "respond",
+            "named": true
+          }
+        ]
+      },
+      "send": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "send",
+            "named": true
+          }
+        ]
+      },
+      "sequence": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sequence",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -3140,7 +3207,7 @@
     "named": false
   },
   {
-    "type": "<log",
+    "type": "<log level=",
     "named": false
   },
   {
@@ -3517,10 +3584,6 @@
   },
   {
     "type": "last",
-    "named": false
-  },
-  {
-    "type": "level",
     "named": false
   },
   {

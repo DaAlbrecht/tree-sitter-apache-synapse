@@ -119,18 +119,18 @@ module.exports = grammar(JSON, {
         ),
 
         mediator: $ => choice(
-            $.log,
-            $.respond,
-            $.property,
-            $.call,
-            $.foreach,
-            $.filter,
-            $.aggregate,
-            $.send,
-            $.iterate,
-            $.sequence,
-            $.payload_factory,
-            $.header
+            field('log', $.log),
+            field('respond', $.respond),
+            field('property', $.property),
+            field('call', $.call),
+            field('foreach', $.foreach),
+            field('filter', $.filter),
+            field('aggregate', $.aggregate),
+            field('send', $.send),
+            field('iterate', $.iterate),
+            field('sequence', $.sequence),
+            field('payload_factory', $.payload_factory),
+            field('header', $.header),
             // TODO: add more mediators
         ),
 
@@ -149,20 +149,21 @@ module.exports = grammar(JSON, {
             ),
         ),
 
-        log: $ => choice(
+        log: $ =>
             seq(
-                '<log',
+                '<log level=',
+                '"',
                 field('level', $.level),
-                '>',
-                optional(repeat($.mediator)),
-                '</log>'
+                '"',
+                choice(
+                    '/>',
+                    seq(
+                        '>',
+                        optional(repeat($.mediator)),
+                        '</log>'
+                    ),
+                ),
             ),
-            seq(
-                '<log',
-                field('level', $.level),
-                '/>'
-            )
-        ),
 
         property: $ => seq(
             '<property',
@@ -627,8 +628,6 @@ module.exports = grammar(JSON, {
             ))
         ),
 
-
-
         json_eval: $ => seq(
             'json-eval(',
             $.json_path,
@@ -643,18 +642,13 @@ module.exports = grammar(JSON, {
             attr('id', $.identifier)
         ),
 
-        level: $ => seq(
-            'level',
-            '=',
-            '"',
+        level: $ =>
             choice(
                 'full',
                 'simple',
                 'custom',
                 'headers',
             ),
-            '"'
-        ),
 
         identifier: $ => /[a-zA-Z_][a-zA-Z0-9_.]*/,
 
